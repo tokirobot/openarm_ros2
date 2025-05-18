@@ -57,8 +57,8 @@ hardware_interface::CallbackReturn OpenArmHW::on_init(
     disable_torque_ = it->second == "true";
   }
 
-
-  canbus_ = std::make_unique<CANBus>(info.hardware_parameters.at("can_device"));
+  //temp CANFD
+  canbus_ = std::make_unique<CANBus>(info.hardware_parameters.at("can_device"),CAN_MODE_FD);
   motor_control_ = std::make_unique<MotorControl>(*canbus_);
 
   if(USING_GRIPPER){

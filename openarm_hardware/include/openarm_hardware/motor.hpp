@@ -1,5 +1,5 @@
-#ifndef MOTOR_H
-#define MOTOR_H
+#ifndef OPENARM_MOTOR_H
+#define OPENARM_MOTOR_H
 
 #include <cstdint>
 #include <map>
@@ -27,12 +27,51 @@ enum class DM_Motor_Type : uint8_t {
 };
 
 enum class DM_variable : uint8_t {
-    UV_Value = 0, KT_Value, OT_Value, OC_Value, ACC, DEC, MAX_SPD, MST_ID,
-    ESC_ID, TIMEOUT, CTRL_MODE, Damp, Inertia, hw_ver, sw_ver, SN, NPP, Rs,
-    LS, Flux, Gr, PMAX, VMAX, TMAX, I_BW, KP_ASR, KI_ASR, KP_APR, KI_APR,
-    OV_Value, GREF, Deta, V_BW, IQ_c1, VL_c1, can_br, sub_ver,
-    u_off = 50, v_off, k1, k2, m_off, dir,
-    p_m = 80, xout,
+    UV_Value = 0,
+    KT_Value,
+    OT_Value,
+    OC_Value,
+    ACC,
+    DEC,
+    MAX_SPD,
+    MST_ID,
+    ESC_ID,
+    TIMEOUT,
+    CTRL_MODE,
+    Damp,
+    Inertia,
+    hw_ver,
+    sw_ver,
+    SN,
+    NPP,
+    Rs,
+    LS,
+    Flux,
+    Gr,
+    PMAX,
+    VMAX,
+    TMAX,
+    I_BW,
+    KP_ASR,
+    KI_ASR,
+    KP_APR,
+    KI_APR,
+    OV_Value,
+    GREF,
+    Deta,
+    V_BW,
+    IQ_c1,
+    VL_c1,
+    can_br,
+    sub_ver,
+    u_off = 50,
+    v_off,
+    k1,
+    k2,
+    m_off,
+    dir,
+    p_m = 80,
+    xout,
     COUNT
 };
 
@@ -54,7 +93,7 @@ public:
     double getVelocity() const;
     double getTorque() const;
     int getParam(int RID) const;
-
+    void setTempParam(int RID, int val);
     uint16_t SlaveID;
     uint16_t MasterID;
     bool isEnable;
@@ -64,31 +103,46 @@ public:
     int getStateTmos() const;
     int getStateTrotor() const;
     double getGoalPosition() const;
+    double getGoalVelocity() const;
     double getGoalTau() const;
 
     void setGoalPosition(double pos);
+    void setGoalVelocity(double vel);
     void setGoalTau(double tau);
     void setStateTmos(int tmos);
     void setStateTrotor(int trotor);
 private:
     double Pd, Vd;
-    double goal_position, goal_tau;
+    double goal_position,goal_velocity, goal_tau;
     double state_q, state_dq, state_tau;
     int state_tmos, state_trotor;
     std::map<int, int> temp_param_dict;
 };
 
 double LIMIT_MIN_MAX(double x, double min, double max);
+
 uint16_t double_to_uint(double x, double x_min, double x_max, int bits);
+
 double uint_to_double(uint16_t x, double min, double max, int bits);
-std::array<uint8_t, 4> double_to_uint8s(double value);
-std::array<uint8_t, 4> data_to_uint8s(uint32_t value);
+
+std::array<uint8_t, 8> double_to_uint8s(double value);
+
+std::array<uint8_t, 4> float_to_uint8s(float value);
+
+float uint8s_to_float(const std::array<uint8_t, 4>& bytes);
+
+
+std::array<uint8_t, 8> data_to_uint8s(uint32_t value);
+
 uint32_t uint8s_to_uint32(uint8_t byte1, uint8_t byte2, uint8_t byte3, uint8_t byte4);
+
 double uint8s_to_double(uint8_t byte1, uint8_t byte2, uint8_t byte3, uint8_t byte4);
+
 bool is_in_ranges(int number);
+
 void print_hex(const std::vector<uint8_t>& data);
 
 template <typename T>
 T get_enum_by_index(int index);
 
-#endif // MOTOR_H
+#endif // OPENARM_MOTOR_H_

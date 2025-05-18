@@ -32,6 +32,9 @@
 #include "motor.hpp"
 #include "motor_control.hpp"
 
+//#define CAN_MODE_CLASSIC 0
+//#define CAN_MODE_FD      1
+
 namespace openarm_hardware
 {
 
