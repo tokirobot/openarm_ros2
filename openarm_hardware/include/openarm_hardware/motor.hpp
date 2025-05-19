@@ -1,5 +1,4 @@
-#ifndef OPENARM_MOTOR_H
-#define OPENARM_MOTOR_H
+#pragma once
 
 #include <cstdint>
 #include <map>
@@ -145,4 +144,3 @@ void print_hex(const std::vector<uint8_t>& data);
 template <typename T>
 T get_enum_by_index(int index);
 
-#endif // OPENARM_MOTOR_H_

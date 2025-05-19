@@ -1,5 +1,4 @@
-#ifndef OPENARM_MOTOR_CONTROL_H_
-#define OPENARM_MOTOR_CONTROL_H_
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -7,12 +6,12 @@
 #include <array>
 #include <cstring>
 #include <unistd.h>
-#include "openarm_hardware/motor.hpp"
-#include "openarm_hardware/canbus.hpp"
+#include "motor.hpp"
+#include "canbus.hpp"
 #include <atomic>
 #include <functional>
-#include <thread>      // std::this_thread::sleep_for
-#include <chrono>      // std::chrono::milliseconds
+#include <thread>      
+#include <chrono>      
 
 class MotorControl {
         public:
@@ -69,4 +68,3 @@ class MotorControl {
                 void writeMotorParam(Motor& motor, DM_variable RID, double value);
 
 };
-#endif // OPENARM_MOTOR_CONTROL_H_

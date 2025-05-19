@@ -13,9 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef OPENARM_HARDWARE__VISIBILITY_CONTROL_H_
-#define OPENARM_HARDWARE__VISIBILITY_CONTROL_H_
-
+#pragma once
 // This logic was borrowed (then namespaced) from the examples on the gcc wiki:
 //     https://gcc.gnu.org/wiki/Visibility
 
@@ -47,4 +45,3 @@
 #define TEMPLATES__ROS2_CONTROL__VISIBILITY_PUBLIC_TYPE
 #endif
 
-#endif  // OPENARM_HARDWARE__VISIBILITY_CONTROL_H_

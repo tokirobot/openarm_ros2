@@ -103,7 +103,7 @@ void MotorControl::recv() {
         uint8_t len;
         std::array<uint8_t, 64> data = canbus_.recv(id, len);
 
-        if (canbus_.which_CAN() == CAN_MODE_CLASSIC) {
+        if (canbus_.whichCAN() == CAN_MODE_CLASSIC) {
                 can_frame frame;
                 std::memset(&frame, 0, sizeof(frame));
                 frame.can_id = id;
@@ -112,7 +112,7 @@ void MotorControl::recv() {
 
                 processPacket(frame);
         }
-        else if (canbus_.which_CAN() == CAN_MODE_FD) {
+        else if (canbus_.whichCAN() == CAN_MODE_FD) {
                 canfd_frame fd_frame;
                 std::memset(&fd_frame, 0, sizeof(fd_frame));
                 fd_frame.can_id = id;

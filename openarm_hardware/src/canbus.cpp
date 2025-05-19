@@ -1,6 +1,4 @@
-// canbus.cpp
 #include "openarm_hardware/canbus.hpp"
-//#include <poll.h>
 
 CANBus::CANBus(const std::string& interface, int mode)
     : mode_(mode) {
@@ -41,7 +39,7 @@ CANBus::~CANBus() {
     close(sock_);
 }
 
-int CANBus::which_CAN(){
+int CANBus::whichCAN(){
         return mode_;
 }
 
