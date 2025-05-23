@@ -203,47 +203,47 @@
                 <inertia ixx="0.00023465661366788053" ixy="7.609048882006294e-05" ixz="3.088694121124684e-07" iyy="0.0005065459365215377" iyz="1.9022818028658623e-07" izz="0.0003737029250058136"/>
             </inertial>
         </link>
-        <link name="${prefix}gripper_center"/>
-        <link name="${prefix}link_left_jaw">
-            <visual>
-                <origin rpy="0 -0.008758182894469432 0" xyz="0.665265 -0.00286677 -0.0209282"/>
-                <geometry>
-                    <mesh filename="package://openarm_description/meshes/left_jaw.stl"/>
-                </geometry>
-                <material name="gray"/>
-            </visual>
-            <collision>
-                <origin rpy="0 -0.0087581828944695 0" xyz="0.665265 -0.00286677 -0.0209282"/>
-                <geometry>
-                    <mesh filename="package://openarm_description/meshes/left_jaw.stl"/>
-                </geometry>
-            </collision>
-            <inertial>
-                <mass value="0.04297897856394934"/>
-                <origin rpy="0 -0.008758182894469429 0" xyz="-0.0187138 0.00217075 0.0159499"/>
-                <inertia ixx="1.1771768742932353e-05" ixy="-2.389928166589898e-06" ixz="3.999292204534159e-06" iyy="2.3837354480794824e-05" iyz="3.494431877242991e-07" izz="3.0474590214086944e-05"/>
-            </inertial>
-        </link>
-        <link name="${prefix}link_right_jaw">
-            <visual>
-                <origin rpy="0 -0.008758182898001485 0" xyz="0.665265 -0.00286677 -0.175928"/>
-                <geometry>
-                    <mesh filename="package://openarm_description/meshes/right_jaw.stl"/>
-                </geometry>
-                <material name="gray"/>
-            </visual>
-            <collision>
-                <origin rpy="0 -0.008758182898001553 0" xyz="0.665265 -0.00286677 -0.175928"/>
-                <geometry>
-                    <mesh filename="package://openarm_description/meshes/right_jaw.stl"/>
-                </geometry>
-            </collision>
-            <inertial>
-                <mass value="0.042981665301134515"/>
-                <origin rpy="0 -0.00875818289800148 0" xyz="-0.0187844 -0.00272415 -0.0159503"/>
-                <inertia ixx="1.1561293087621594e-05" ixy="2.537718468008212e-06" ixz="-3.6591812257702003e-06" iyy="2.370165527871047e-05" iyz="4.848038235889027e-07" izz="3.039652946542647e-05"/>
-            </inertial>
-        </link>
+        <!--<link name="${prefix}gripper_center"/>-->
+        <!--<link name="${prefix}link_left_jaw">-->
+            <!--<visual>-->
+                <!--<origin rpy="0 -0.008758182894469432 0" xyz="0.665265 -0.00286677 -0.0209282"/>-->
+                <!--<geometry>-->
+                    <!--<mesh filename="package://openarm_description/meshes/left_jaw.stl"/>-->
+                <!--</geometry>-->
+                <!--<material name="gray"/>-->
+            <!--</visual>-->
+            <!--<collision>-->
+                <!--<origin rpy="0 -0.0087581828944695 0" xyz="0.665265 -0.00286677 -0.0209282"/>-->
+                <!--<geometry>-->
+                    <!--<mesh filename="package://openarm_description/meshes/left_jaw.stl"/>-->
+                <!--</geometry>-->
+            <!--</collision>-->
+            <!--<inertial>-->
+                <!--<mass value="0.04297897856394934"/>-->
+                <!--<origin rpy="0 -0.008758182894469429 0" xyz="-0.0187138 0.00217075 0.0159499"/>-->
+                <!--<inertia ixx="1.1771768742932353e-05" ixy="-2.389928166589898e-06" ixz="3.999292204534159e-06" iyy="2.3837354480794824e-05" iyz="3.494431877242991e-07" izz="3.0474590214086944e-05"/>-->
+            <!--</inertial>-->
+        <!--</link>-->
+        <!--<link name="${prefix}link_right_jaw">-->
+            <!--<visual>-->
+                <!--<origin rpy="0 -0.008758182898001485 0" xyz="0.665265 -0.00286677 -0.175928"/>-->
+                <!--<geometry>-->
+                    <!--<mesh filename="package://openarm_description/meshes/right_jaw.stl"/>-->
+                <!--</geometry>-->
+                <!--<material name="gray"/>-->
+            <!--</visual>-->
+            <!--<collision>-->
+                <!--<origin rpy="0 -0.008758182898001553 0" xyz="0.665265 -0.00286677 -0.175928"/>-->
+                <!--<geometry>-->
+                    <!--<mesh filename="package://openarm_description/meshes/right_jaw.stl"/>-->
+                <!--</geometry>-->
+            <!--</collision>-->
+            <!--<inertial>-->
+                <!--<mass value="0.042981665301134515"/>-->
+                <!--<origin rpy="0 -0.00875818289800148 0" xyz="-0.0187844 -0.00272415 -0.0159503"/>-->
+                <!--<inertia ixx="1.1561293087621594e-05" ixy="2.537718468008212e-06" ixz="-3.6591812257702003e-06" iyy="2.370165527871047e-05" iyz="4.848038235889027e-07" izz="3.039652946542647e-05"/>-->
+            <!--</inertial>-->
+        <!--</link>-->
         <joint name="${prefix}rev1" type="revolute">
             <parent link="${prefix}link1"/>
             <child link="${prefix}link2"/>
@@ -293,25 +293,25 @@
             <axis xyz="0 0 -1"/>
             <limit effort="0.0" lower="${-pi * 11.0 / 36.0}" upper="${pi * 11.0 / 36.0}" velocity="0.0"/>
         </joint>
-        <joint name="${prefix}left_pris1" type="prismatic">
-            <parent link="${prefix}link8"/>
-            <child link="${prefix}link_left_jaw"/>
-            <origin rpy="1.570796326795101 -0.014066001454929162 0.00875904933542146" xyz="-0.1071 0.0768568 0.0132053"/>
-            <axis xyz="0 0 -1"/>
-            <limit effort="0.0" lower="-0.0451" upper="0.0" velocity="0.1"/>
-        </joint>
-        <joint name="${prefix}right_pris2" type="prismatic">
-            <parent link="${prefix}link8"/>
-            <child link="${prefix}link_right_jaw"/>
-            <origin rpy="1.570796326794883 -0.014066001454927403 0.008759049336290027" xyz="-0.10571 -0.0781373 0.0132053"/>
-            <axis xyz="0 0 -1"/>
-            <limit effort="0.0" lower="-0.0451" upper="0.0" velocity="0.0"/>
-            <mimic joint="${prefix}left_pris1" multiplier="-1.0" offset="0.0"/>
-        </joint>
-        <joint name="${prefix}virtual_gripper_center" type="fixed">
-            <parent link="${prefix}link8"/>
-            <child link="${prefix}gripper_center"/>
-            <origin rpy="0 0 0" xyz="-0.13 0.00 0.0132053"/>
-        </joint>
+        <!--<joint name="${prefix}left_pris1" type="prismatic">-->
+            <!--<parent link="${prefix}link8"/>-->
+            <!--<child link="${prefix}link_left_jaw"/>-->
+            <!--<origin rpy="1.570796326795101 -0.014066001454929162 0.00875904933542146" xyz="-0.1071 0.0768568 0.0132053"/>-->
+            <!--<axis xyz="0 0 -1"/>-->
+            <!--<limit effort="0.0" lower="-0.0451" upper="0.0" velocity="0.1"/>-->
+        <!--</joint>-->
+        <!--<joint name="${prefix}right_pris2" type="prismatic">-->
+            <!--<parent link="${prefix}link8"/>-->
+            <!--<child link="${prefix}link_right_jaw"/>-->
+            <!--<origin rpy="1.570796326794883 -0.014066001454927403 0.008759049336290027" xyz="-0.10571 -0.0781373 0.0132053"/>-->
+            <!--<axis xyz="0 0 -1"/>-->
+            <!--<limit effort="0.0" lower="-0.0451" upper="0.0" velocity="0.0"/>-->
+            <!--<mimic joint="${prefix}left_pris1" multiplier="-1.0" offset="0.0"/>-->
+        <!--</joint>-->
+        <!--<joint name="${prefix}virtual_gripper_center" type="fixed">-->
+            <!--<parent link="${prefix}link8"/>-->
+            <!--<child link="${prefix}gripper_center"/>-->
+            <!--<origin rpy="0 0 0" xyz="-0.13 0.00 0.0132053"/>-->
+        <!--</joint>-->
     </xacro:macro>
 </robot>

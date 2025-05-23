@@ -49,7 +49,7 @@ static const std::array<double, TOTAL_DOF> KD = {2.75, 2.5, 0.7, 0.4,
 static const double START_POS_TOLERANCE_RAD = 0.1;
 static const double POS_JUMP_TOLERANCE_RAD = 3.1415 / 16.0;
 
-static const bool USING_GRIPPER = true;
+static const bool USING_GRIPPER =false;
 static const double GRIPPER_REFERENCE_GEAR_RADIUS_M = 0.00853;
 static const double GRIPPER_GEAR_DIRECTION_MULTIPLIER = -1.0;
 static const int GRIPPER_INDEX = TOTAL_DOF - 1;
