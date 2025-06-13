@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+　Copyright 2025 Reazon Holdings, Inc.
+
+　Licensed under the Apache License, Version 2.0 (the "License");
+　you may not use this file except in compliance with the License.
+　You may obtain a copy of the License at
+
+　    http://www.apache.org/licenses/LICENSE-2.0
+
+　Unless required by applicable law or agreed to in writing, software
+　distributed under the License is distributed on an "AS IS" BASIS,
+　WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+　See the License for the specific language governing permissions and
+　limitations under the License.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="openarm_v1">
+    <!-- Robot description parameters -->
+    <xacro:arg name="prefix" default="" />
+    <xacro:arg name="side" default="right" />
+    <xacro:arg name="zero_pos" default="up" />
+    
+    <!-- Control-related parameters -->
+    <xacro:arg name="can_device" default="can0" />
+    <xacro:arg name="use_mock_hardware" default="false" />
+    <xacro:arg name="mock_sensor_commands" default="false" />
+
+    <!-- Include robot description (without control parameters) -->
+    <xacro:include filename="openarm_v1.robot.xacro"/>
+    <xacro:openarm_v1_robot prefix="$(arg prefix)" side="$(arg side)" zero_pos="$(arg zero_pos)"/>
+    
+    <!-- Include control configuration (with only control parameters) -->
+    <xacro:include filename="$(find openarm_v1_description)/urdf/openarm_v1.ros2_control.xacro"/>
+    <xacro:arg name="initial_positions_file" default="$(find openarm_v1_description)/config/initial_positions.yaml" />
+    <xacro:openarm_v1_ros2_control name="OpenArm_v1_HW" prefix="$(arg prefix)" initial_positions_file="$(arg initial_positions_file)" can_device="$(arg can_device)" use_mock_hardware="$(arg use_mock_hardware)" mock_sensor_commands="$(arg mock_sensor_commands)"/>
+    
+</robot>

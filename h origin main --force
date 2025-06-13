@@ -1,0 +1,90 @@
+* [33m00ef972[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31mupstream/main[m[33m)[m Delete unplanned single arm moveit (#20)
+[31m|[m * [33mbb2b7a8[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m delete: ee delete
+[31m|[m[31m/[m  
+* [33m14f160b[m fix: malfunctioning launch script (#19)
+* [33mdd0be4a[m Add Contributor Covenant Code of Conduct (#18)
+* [33m7f5dcae[m openarm_hardware: add ros2_control_test_assets as a test dependency (#15)
+* [33m44bca7b[m fix: move xml-model declaration above license header (#14)
+* [33m56f98bd[m Relicense to Apache License 2.0 from BSD 3-Clause License (#13)
+* [33m421e70a[m remove Vim's swap files (#12)
+* [33md109f32[m clang-format: apply clang-format suggestions (#10)
+* [33m30d11b4[m ci: Enable Dependabot for GitHub Actions (#11)
+* [33mc9fbd8a[m ci: add pre-commit and CI lint workflow (#9)
+* [33md6cc80c[m fix: compatible with canfd (#7)
+* [33mde9eb17[m Add '*.swp' to .gitignore (#8)
+[32m|[m * [33m039497a[m[33m ([m[1;31morigin/yt/socket_canfd[m[33m)[m fix: address review comments
+[32m|[m * [33m3eac26b[m fix : compatible with canfd
+[32m|[m[32m/[m  
+* [33ma877809[m Update package.xml with description and maintainer info
+* [33mea2e25e[m Update README.md with build status badge
+* [33me9365f0[m Update openarm_hardware package.xml to include hardware_interface and pluginlib
+* [33me4afcbf[m Remove unused dep 'warehouse_ros_mongo' from package.xml
+* [33m7d4eaf9[m Remove openarm_bimanual_teleop from openarm metapackage
+* [33m1d881bb[m Update package.xml with BSD-3-Clause License
+* [33md9a2a6d[m Add openarm metapackage
+* [33me24c9e3[m Update generated urdfs
+* [33mfcd1a10[m Correct URDF to true joint limits + Add and update documentation (#6)
+* [33mf7ca1fe[m Add updated urdfs
+* [33m1a1084c[m Add moveit2 package with dual arm/gripper (#5)
+* [33mce06ea1[m Add URDFs
+* [33m65baa02[m Resolve merge conflict
+* [33m9618e10[m Remove default disable_torque_ in openarm
+* [33m596c498[m Add openarm_bimanual_moveit_config and deploy to physical openarm (#3)
+* [33m42935bb[m Clean up openarm_bimanual_description
+* [33mb50556c[m Refactor openarm urdf
+* [33m8168442[m Add library install for openarm_hardware
+* [33md743016[m Update README.md with installation instructions
+* [33m0246fc6[m Reorder packages in alphabetical order in README.md
+* [33m595fbe7[m Implement openarm ros2_control support with openarm_hardware and openarm_bringup (#2)
+* [33m52f3901[m Update package.xml description for openarm_bimanual_description
+* [33m8cfbde6[m Update README.md with pictures of completed openarm_bimanual_description urdf
+* [33md5a9322[m Add openarm_bimanual_description to the readme
+* [33m5839d05[m Update default zero to be up, with option for arm zero position (bend shoulder)
+* [33m73eea36[m Update urdf
+* [33mbb8bff1[m Refactor openarm_description into separate package
+* [33m17b99f5[m Cleanup bimanual_description
+* [33m3b8f12d[m Use stl over dae
+* [33mdb10d87[m Remove redundant dae files
+* [33m4dddd2b[m Rename dae to more readable names
+* [33mc5f8cfb[m Update rom of gripper to 4.51cm
+* [33m289ed48[m Generate updated urdf
+* [33m62b6e3a[m Align left gripper visual mesh
+* [33mf88e62e[m Align left arm mesh
+* [33m4466756[m Complete mesh alignment for left arm
+* [33m2a0ef59[m Close
+* [33me00fa98[m Add rotate mesh for actuator motor
+* [33m90f859b[m Add left wrist
+* [33mfdf02a7[m Add arm mirrors
+* [33md630ecb[m Checkpoint: left arm up to link4
+* [33m749a893[m Revert side
+* [33m184959e[m Revert mirrors
+* [33m45f5e21[m Link 5 checkpoint
+* [33m213a35f[m Checkpoint to add up to rev 6, link 4
+* [33mfc2477b[m Correct first joint of left arm
+* [33mb81fc57[m Checkpoint: up to link3
+* [33m97564b9[m Switch default to right
+* [33ma2e5683[m Define one side with xacro
+* [33m8fad065[m Format left urdf
+* [33m9f85006[m Add left and right arms
+* [33m3776596[m Define xacro shortcuts to start and decouple left and right arms from torso
+* [33mf881d5c[m Move openarm_two_arms out of workfolder
+* [33m1cdb995[m Add two arm urdf
+* [33m102f1ed[m Add todo note about inertial tests for URDF
+* [33m7022969[m Update joint names to be more readable
+* [33m65d94e4[m Add new urdf
+* [33mc1016d6[m Update rev7 joint type for urdf (continuous -> revolute)
+* [33m49483aa[m Remove all permissions from meshes
+* [33mfe0f507[m Add file descriptor
+* [33m004d083[m Restore find command
+* [33m1e24df2[m Update urdf for better gazebo compatibility
+* [33m702c92a[m Remove query start state for safe trajectory plans
+* [33ma811f30[m Verified working with humble/rolling
+* [33m08a299c[m Add mimic tag to control left and right gripper equally
+* [33mc9c249c[m Update package descriptions
+*   [33m7502b7b[m Merge pull request #1 from reazon-research/sf/left-slider
+[34m|[m[35m\[m  
+[34m|[m * [33m5809be6[m Fix the slider name from 'slider_left' to 'slider_right'
+[34m|[m[34m/[m  
+* [33mc8793e0[m Update description to ROS2
+* [33mfdeb07c[m Add moveit video to README.md
+* [33m1418c85[m Add openarm_grip_description and openarm_moveit_config

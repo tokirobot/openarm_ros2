@@ -1,0 +1,337 @@
+<?xml version="1.0" ?>
+<!--
+　Copyright 2025 Reazon Holdings, Inc.
+
+　Licensed under the Apache License, Version 2.0 (the "License");
+　you may not use this file except in compliance with the License.
+　You may obtain a copy of the License at
+
+　    http://www.apache.org/licenses/LICENSE-2.0
+
+　Unless required by applicable law or agreed to in writing, software
+　distributed under the License is distributed on an "AS IS" BASIS,
+　WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+　See the License for the specific language governing permissions and
+　limitations under the License.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  
+
+<!-- <xacro:include filename="$(find openarm_v1_description)/urdf/materials.xacro" /> -->
+<!-- <xacro:include filename="$(find openarm_v1_description)/urdf/openarm_v1.trans" />
+<xacro:include filename="$(find openarm_v1_description)/urdf/openarm_v1.gazebo" />
+ -->
+ <material name="silver">
+  <color rgba="0.700 0.700 0.700 1.000"/>
+</material>
+
+<xacro:macro name="openarm_v1_robot" params="side:='right' prefix:='' zero_pos='up'">
+
+
+    <xacro:property name="reflect" value="${1 if side=='right' else -1}"/>
+    <xacro:property name="rotate" value="${0 if side=='right' else pi}"/>
+
+    <link name="${prefix}dummy_link"/>
+
+    <joint name="${prefix}dummy_joint" type="fixed">
+        <parent link="${prefix}dummy_link"/>
+        <child link="${prefix}oparm_link1"/>
+    </joint>
+
+    <link name="${prefix}oparm_link1">
+      <inertial>
+        <origin xyz="-0.0010128150688448064 0.00011921310475708836 -0.03180504460041544" rpy="0 0 0"/>
+        <mass value="1.199854606490333"/>
+        <inertia ixx="0.001184" iyy="0.00101" izz="0.001542" ixy="-5e-06" iyz="-8e-06" ixz="-3.5e-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/base_link.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/base_link.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}oparm_link2_1">
+      <inertial>
+        <origin xyz="-0.0012074754655398907 3.2777381724620495e-05 0.05528470264561512" rpy="0 0 0"/>
+        <mass value="1.1000847398831186"/>
+        <inertia ixx="0.001407" iyy="0.001051" izz="0.000834" ixy="-1e-06" iyz="-0.0" ixz="-1.1e-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="6.4e-05 3.9e-05 7.4e-05" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link2_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="6.4e-05 3.9e-05 7.4e-05" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link2_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}oparm_link3_1">
+      <inertial>
+        <origin xyz="0.01121664780902543 1.3328249549549094e-05 0.040881711980061415" rpy="0 0 0"/>
+        <mass value="0.2517618223062059"/>
+        <inertia ixx="0.000191" iyy="0.000222" izz="0.000115" ixy="-0.0" iyz="-0.0" ixz="-6.2e-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="0.030164 7.5e-05 -0.059926" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link3_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="0.030164 7.5e-05 -0.059926" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link3_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}oparm_link4_1">
+      <inertial>
+        <origin xyz="-0.0007615058947238776 0.0008537439948917441 0.09243691252183486" rpy="0 0 0"/>
+        <mass value="0.8795120731547696"/>
+        <inertia ixx="0.003872" iyy="0.003785" izz="0.000459" ixy="0.0" iyz="-4.3e-05" ixz="8e-06"/>
+      </inertial>
+      <visual>
+        <origin xyz="6.4e-05 3.9e-05 -0.126176" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link4_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="6.4e-05 3.9e-05 -0.126176" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link4_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}oparm_link5_1">
+      <inertial>
+        <origin xyz="-0.0013357751355886956 -0.030369405447056 0.06320013521798368" rpy="0 0 0"/>
+        <mass value="0.5098534566833373"/>
+        <inertia ixx="0.000623" iyy="0.000511" izz="0.000334" ixy="-1e-06" iyz="3.8e-05" ixz="-1.9e-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="0.000103 -0.031461 -0.279926" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link5_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="0.000103 -0.031461 -0.279926" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link5_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}oparm_link6_1">
+      <inertial>
+        <origin xyz="-0.0021201729515073105 -0.00062709480879269 0.04528877679278359" rpy="0 0 0"/>
+        <mass value="0.4900322801663895"/>
+        <inertia ixx="0.000352" iyy="0.000379" izz="0.000234" ixy="1.2e-05" iyz="1.5e-05" ixz="-1.4e-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="6.4e-05 3.9e-05 -0.375426" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link6_1.stl" scale="0.001 ${reflect*0.001}  0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="6.4e-05 3.9e-05 -0.375426" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link6_1.stl" scale="0.001 ${reflect*0.001}  0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}oparm_link7_1">
+      <inertial>
+        <origin xyz="-0.03713023470335729 0.00035983890089288836 -8.108153514163607e-05" rpy="0 0 0"/>
+        <mass value="0.3593684115765714"/>
+        <inertia ixx="0.000146" iyy="0.000159" izz="0.000162" ixy="4e-06" iyz="1e-06" ixz="-0.0"/>
+      </inertial>
+      <visual>
+        <origin xyz="-0.037436 -7e-06 -0.495926" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link7_1.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="-0.037436 -7e-06 -0.495926" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link7_1.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}oparm_link8_1">
+      <inertial>
+        <origin xyz="-4.621208532881523e-05 -0.014878395014230248 0.0688487501579852" rpy="0 0 0"/>
+        <mass value="0.4819344947868502"/>
+        <inertia ixx="0.000541" iyy="0.000436" izz="0.000282" ixy="0.0" iyz="6.2e-05" ixz="-1e-06"/>
+      </inertial>
+      <visual>
+        <origin xyz="8.9e-05 -0.020461 -0.495926" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link8_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="8.9e-05 -0.020461 -0.495926" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link8_1.stl" scale="0.001 ${reflect*0.001} 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}gripper_center"/>
+
+    <link name="${prefix}oparm_link_gripper1_1">
+      <inertial>
+        <origin xyz="-0.46648908387963345 0.5103204691805678 0.4070117217536271" rpy="0 0 0"/>
+        <mass value="0.2697206045576214"/>
+        <inertia ixx="0.000188" iyy="0.000207" izz="9.1e-05" ixy="1e-06" iyz="2e-05" ixz="2.2e-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="-0.469674 0.446194 -0.22199" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link_gripper1_1.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="-0.469674 0.446194 -0.22199" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link_gripper1_1.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}oparm_link_gripper2_1">
+      <inertial>
+        <origin xyz="-0.4790039954788485 0.3826938133089908 0.4069900240158981" rpy="0 0 0"/>
+        <mass value="0.26972369116983347"/>
+        <inertia ixx="0.00019" iyy="0.000211" izz="9.3e-05" ixy="1e-06" iyz="-2e-05" ixz="-2.4e-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="-0.475748 0.440106 -0.222001" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link_gripper2_1.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="silver"/>
+      </visual>
+      <collision>
+        <origin xyz="-0.475748 0.440106 -0.222001" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://openarm_v1_description/meshes/oparm_link_gripper2_1.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}oparm_joint1" type="revolute">
+      <origin xyz="-6.4e-05 -3.9e-05 -7.4e-05" rpy="0 0 0"/>
+      <parent link="${prefix}oparm_link1"/>
+      <child link="${prefix}oparm_link2_1"/>
+      <axis xyz="0.0 0.0 1.0"/>
+      <xacro:property name="joint_upper" value="${3.490659 if side == 'right' else 1.396263}"/>
+      <xacro:property name="joint_lower" value="${-1.396263 if side == 'right' else -3.490659}"/>
+      <limit upper="${joint_upper}" lower="${joint_lower}" effort="100" velocity="100"/>
+    </joint>
+
+    <joint name="${prefix}oparm_joint2" type="revolute">
+      <origin xyz="-0.0301 -3.6e-05 0.06" rpy="${reflect * pi / 2} 0 0"/>
+      <parent link="${prefix}oparm_link2_1"/>
+      <child link="${prefix}oparm_link3_1"/>
+      <axis xyz="-1.0 0.0 0.0"/>
+      <limit upper="${reflect * pi / 2 + 1.745329}" lower="${reflect * pi / 2 - 1.745329}" effort="100" velocity="100"/>
+    </joint>
+
+    <joint name="${prefix}oparm_joint3" type="revolute">
+      <origin xyz="0.0301 3.6e-05 0.06625" rpy="0 0 0"/>
+      <parent link="${prefix}oparm_link3_1"/>
+      <child link="${prefix}oparm_link4_1"/>
+      <axis xyz="-0.0 0.0 1.0"/>
+      <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+    </joint>
+
+    <joint name="${prefix}oparm_joint4" type="revolute">
+      <origin xyz="-3.9e-05 0.0315 0.15375" rpy="0 0 0"/>
+      <parent link="${prefix}oparm_link4_1"/>
+      <child link="${prefix}oparm_link5_1"/>
+      <axis xyz="0.0 1.0 0.0"/>
+      <limit upper="2.443461" lower="0.0" effort="100" velocity="100"/>
+    </joint>
+
+    <joint name="${prefix}oparm_joint5" type="revolute">
+      <origin xyz="3.9e-05 -0.0315 0.0955" rpy="0 0 0"/>
+      <parent link="${prefix}oparm_link5_1"/>
+      <child link="${prefix}oparm_link6_1"/>
+      <axis xyz="0.0 -0.0 1.0"/>
+      <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+    </joint>
+
+    <joint name="${prefix}oparm_joint6" type="revolute">
+      <origin xyz="0.0375 4.6e-05 0.1205" rpy="0 0 0"/>
+      <parent link="${prefix}oparm_link6_1"/>
+      <child link="${prefix}oparm_link7_1"/>
+      <axis xyz="1.0 0.0 0.0"/>
+      <limit upper="0.785398" lower="-0.785398" effort="100" velocity="100"/>
+    </joint>
+
+    <joint name="${prefix}oparm_joint7" type="revolute">
+      <origin xyz="-0.037525 0.020454 0.0" rpy="0 0 0"/>
+      <parent link="${prefix}oparm_link7_1"/>
+      <child link="${prefix}oparm_link8_1"/>
+      <axis xyz="0.0 1.0 0.0"/>
+      <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+    </joint>
+
+    <joint name="${prefix}oparm_joint_gripper1" type="prismatic">
+      <origin xyz="0.469763 -0.466655 -0.273936" rpy="0 0 0"/>
+      <parent link="${prefix}oparm_link8_1"/>
+      <child link="${prefix}oparm_link_gripper1_1"/>
+      <axis xyz="0.0 -1.0 -0.0"/>
+      <limit upper="0.043" lower="0.0" effort="100" velocity="100"/>
+    </joint>
+
+    <joint name="${prefix}oparm_joint_gripper2" type="prismatic">
+      <origin xyz="0.475837 -0.460567 -0.273925" rpy="0 0 0"/>
+      <parent link="${prefix}oparm_link8_1"/>
+      <child link="${prefix}oparm_link_gripper2_1"/>
+      <axis xyz="0.0 1.0 0.0"/>
+      <limit upper="0.043" lower="0.0" effort="100" velocity="100"/>
+      <mimic joint="${prefix}oparm_joint_gripper1" multiplier="1.0" offset="0.0"/>
+    </joint>
+
+    <joint name="${prefix}virtual_gripper_center" type="fixed">
+      <parent link="${prefix}oparm_link8_1"/>
+      <child link="${prefix}gripper_center"/>
+      <origin rpy="0 0 0" xyz="0.0 0.00 0.13"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

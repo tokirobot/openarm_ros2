@@ -1,0 +1,440 @@
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 70
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /RobotModel1
+        - /TF1
+        - /TF1/Frames1
+        - /TF1/Tree1
+      Splitter Ratio: 0.5
+    Tree Height: 427
+  - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /robot_description
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        camera_accel_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_accel_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_bottom_screw_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_color_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_color_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_gyro_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_gyro_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra1_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra1_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra2_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra2_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_dummy_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        left_gripper_center:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        left_oparm_link1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link2_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link3_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link4_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link5_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link6_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link7_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link8_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link_gripper1_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_oparm_link_gripper2_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        pedestal_v1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_dummy_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        right_gripper_center:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        right_oparm_link1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link2_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link3_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link4_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link5_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link6_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link7_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link8_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link_gripper1_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_oparm_link_gripper2_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+      Mass Properties:
+        Inertia: false
+        Mass: false
+      Name: RobotModel
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        camera_accel_frame:
+          Value: false
+        camera_accel_optical_frame:
+          Value: false
+        camera_bottom_screw_frame:
+          Value: false
+        camera_color_frame:
+          Value: false
+        camera_color_optical_frame:
+          Value: false
+        camera_depth_frame:
+          Value: false
+        camera_depth_optical_frame:
+          Value: false
+        camera_gyro_frame:
+          Value: false
+        camera_gyro_optical_frame:
+          Value: false
+        camera_infra1_frame:
+          Value: false
+        camera_infra1_optical_frame:
+          Value: false
+        camera_infra2_frame:
+          Value: false
+        camera_infra2_optical_frame:
+          Value: false
+        camera_link:
+          Value: false
+        left_dummy_link:
+          Value: false
+        left_gripper_center:
+          Value: true
+        left_oparm_link1:
+          Value: true
+        left_oparm_link2_1:
+          Value: true
+        left_oparm_link3_1:
+          Value: true
+        left_oparm_link4_1:
+          Value: true
+        left_oparm_link5_1:
+          Value: true
+        left_oparm_link6_1:
+          Value: true
+        left_oparm_link7_1:
+          Value: true
+        left_oparm_link8_1:
+          Value: true
+        left_oparm_link_gripper1_1:
+          Value: false
+        left_oparm_link_gripper2_1:
+          Value: false
+        pedestal_v1_link:
+          Value: true
+        right_dummy_link:
+          Value: false
+        right_gripper_center:
+          Value: true
+        right_oparm_link1:
+          Value: true
+        right_oparm_link2_1:
+          Value: true
+        right_oparm_link3_1:
+          Value: true
+        right_oparm_link4_1:
+          Value: true
+        right_oparm_link5_1:
+          Value: true
+        right_oparm_link6_1:
+          Value: true
+        right_oparm_link7_1:
+          Value: true
+        right_oparm_link8_1:
+          Value: true
+        right_oparm_link_gripper1_1:
+          Value: false
+        right_oparm_link_gripper2_1:
+          Value: false
+        world:
+          Value: false
+      Marker Scale: 0.699999988079071
+      Name: TF
+      Show Arrows: false
+      Show Axes: true
+      Show Names: false
+      Tree:
+        world:
+          pedestal_v1_link:
+            camera_bottom_screw_frame:
+              camera_link:
+                camera_accel_frame:
+                  camera_accel_optical_frame:
+                    {}
+                camera_color_frame:
+                  camera_color_optical_frame:
+                    {}
+                camera_depth_frame:
+                  camera_depth_optical_frame:
+                    {}
+                camera_gyro_frame:
+                  camera_gyro_optical_frame:
+                    {}
+                camera_infra1_frame:
+                  camera_infra1_optical_frame:
+                    {}
+                camera_infra2_frame:
+                  camera_infra2_optical_frame:
+                    {}
+            left_dummy_link:
+              left_oparm_link1:
+                left_oparm_link2_1:
+                  left_oparm_link3_1:
+                    left_oparm_link4_1:
+                      left_oparm_link5_1:
+                        left_oparm_link6_1:
+                          left_oparm_link7_1:
+                            left_oparm_link8_1:
+                              left_gripper_center:
+                                {}
+                              left_oparm_link_gripper1_1:
+                                {}
+                              left_oparm_link_gripper2_1:
+                                {}
+            right_dummy_link:
+              right_oparm_link1:
+                right_oparm_link2_1:
+                  right_oparm_link3_1:
+                    right_oparm_link4_1:
+                      right_oparm_link5_1:
+                        right_oparm_link6_1:
+                          right_oparm_link7_1:
+                            right_oparm_link8_1:
+                              right_gripper_center:
+                                {}
+                              right_oparm_link_gripper1_1:
+                                {}
+                              right_oparm_link_gripper2_1:
+                                {}
+      Update Interval: 0
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: pedestal_v1_link
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 1.7321667671203613
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0.05608927458524704
+        Y: 0.2031579613685608
+        Z: 0.6665120124816895
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.2997967004776001
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz)
+      Yaw: 0.02184249833226204
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1016
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd0000000100000000000001cb0000039efc0200000002fb000000100044006900730070006c006100790073010000003d0000022e000000c900fffffffb0000000a0056006900650077007301000002710000016a000000a400ffffff000005690000039e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Views:
+    collapsed: false
+  Width: 1850
+  X: 70
+  Y: 27

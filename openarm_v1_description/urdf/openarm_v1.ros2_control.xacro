@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+　Copyright 2025 Reazon Holdings, Inc.
+
+　Licensed under the Apache License, Version 2.0 (the "License");
+　you may not use this file except in compliance with the License.
+　You may obtain a copy of the License at
+
+　    http://www.apache.org/licenses/LICENSE-2.0
+
+　Unless required by applicable law or agreed to in writing, software
+　distributed under the License is distributed on an "AS IS" BASIS,
+　WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+　See the License for the specific language governing permissions and
+　limitations under the License.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="openarm_v1_ros2_control" params="name initial_positions_file prefix:='' can_device='can0' use_mock_hardware:=false mock_sensor_commands:=false">
+        <xacro:property name="initial_positions" value="${xacro.load_yaml(initial_positions_file)['initial_positions']}"/>
+
+        <ros2_control name="${prefix}${name}" type="system">
+            <hardware>
+                <xacro:if value="${use_mock_hardware}">
+                    <plugin>mock_components/GenericSystem</plugin>
+                    <param name="mock_sensor_commands">${mock_sensor_commands}</param>
+                </xacro:if>
+                <xacro:unless value="${use_mock_hardware}">
+                    <plugin>openarm_hardware/OpenArm_v1_HW</plugin>
+                    <param name="prefix">${prefix}</param>
+                    <param name="can_device">${can_device}</param>
+                </xacro:unless>
+            </hardware>
+            <joint name="${prefix}oparm_joint1">
+                <command_interface name="position"/>
+                <command_interface name="velocity"/>
+                <command_interface name="effort"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+            <joint name="${prefix}oparm_joint2">
+                <command_interface name="position"/>
+                <command_interface name="velocity"/>
+                <command_interface name="effort"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+            <joint name="${prefix}oparm_joint3">
+                <command_interface name="position"/>
+                <command_interface name="velocity"/>
+                <command_interface name="effort"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+            <joint name="${prefix}oparm_joint4">
+                <command_interface name="position"/>
+                <command_interface name="velocity"/>
+                <command_interface name="effort"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+            <joint name="${prefix}oparm_joint5">
+                <command_interface name="position"/>
+                <command_interface name="velocity"/>
+                <command_interface name="effort"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+            <joint name="${prefix}oparm_joint6">
+                <command_interface name="position"/>
+                <command_interface name="velocity"/>
+                <command_interface name="effort"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+            <joint name="${prefix}oparm_joint7">
+                <command_interface name="position"/>
+                <command_interface name="velocity"/>
+                <command_interface name="effort"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+                <state_interface name="effort"/>
+            </joint>
+            <joint name="${prefix}oparm_joint_gripper2">
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+
+        </ros2_control>
+    </xacro:macro>
+</robot>
