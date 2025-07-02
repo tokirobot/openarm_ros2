@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hand">
+  <!-- safety_distance: Minimum safety distance in [m] by which the collision volumes are expanded and which is enforced during robot motions -->
+  <xacro:macro name="openarm_hand" params="connected_to:='' arm_type arm_prefix:='' ee_type ee_inertials rpy_ee:='0 0 0' xyz_ee:='0 0 0' tcp_xyz:='0 0 0.0' tcp_rpy:='0 0 0' gazebo:=false description_pkg:=openarm_description">
+    <xacro:property name="ee_prefix" default=""/>
+    <xacro:unless value="${arm_type == ''}">
+      <xacro:property name="ee_prefix" value="${arm_prefix}${arm_type}_" />
+    </xacro:unless>
+    <xacro:unless value="${connected_to == ''}">
+      <joint name="${ee_prefix}hand_joint" type="fixed">
+        <parent link="${connected_to}" />
+        <child link="${ee_prefix}hand" />
+        <origin xyz="${xyz_ee}" rpy="${rpy_ee}" />
+      </joint>
+    </xacro:unless>
+
+    <xacro:ee_link_with_sc name="hand" gazebo="${gazebo}" />
+
+    <!-- Define the hand_tcp frame -->
+    <link name="${ee_prefix}hand_tcp" />
+
+    <joint name="${ee_prefix}hand_tcp_joint" type="fixed">
+      <origin xyz="${tcp_xyz}" rpy="${tcp_rpy}" />
+      <parent link="${ee_prefix}hand" />
+      <child link="${ee_prefix}hand_tcp" />
+    </joint>
+
+    <link name="${ee_prefix}leftfinger">
+      <visual name="${ee_prefix}leftfinger_visual">
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/ee/${ee_type}/visual/finger.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <xacro:if value="${gazebo}">
+        <xacro:ee-inertials name="leftfinger" />
+      </xacro:if>
+    </link>
+
+    <link name="${ee_prefix}rightfinger">
+      <visual name="${ee_prefix}rightfinger_visual">
+        <origin xyz="0 0 0" rpy="0 0 ${pi}" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/ee/${ee_type}/visual/finger.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <xacro:if value="${gazebo}">
+        <xacro:ee-inertials name="rightfinger" />
+      </xacro:if>
+    </link>
+
+
+    <joint name="${ee_prefix}finger_joint1" type="prismatic">
+      <parent link="${ee_prefix}hand" />
+      <child link="${ee_prefix}leftfinger" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit effort="100" lower="0.0" upper="0.04" velocity="0.2" />
+    </joint>
+
+
+    <joint name="${ee_prefix}finger_joint2" type="prismatic">
+      <parent link="${ee_prefix}hand" />
+      <child link="${ee_prefix}rightfinger" />
+      <origin xyz="0 0 0.0" rpy="0 0 0" />
+      <axis xyz="0 -1 0" />
+      <limit effort="100" lower="0.0" upper="0.04" velocity="0.2" />
+      <mimic joint="${ee_prefix}finger_joint1" />
+    </joint>
+
+
+  </xacro:macro>
+</robot>

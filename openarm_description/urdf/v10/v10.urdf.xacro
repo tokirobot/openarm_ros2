@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="openarm">
+
+  <xacro:include filename="$(find openarm_description)/urdf/common/openarm_robot.xacro"/>
+
+  <!--
+    DEPRECATION NOTICE
+    argument arm_type is no longer supported and will be removed in the future.
+    This argument is ignored.
+  -->
+  <xacro:arg name="arm_type" default="v10" />
+
+  <!-- <xacro:arg name="body_type" default="v10" /> -->
+
+  <!-- Don't print a prefix for joints, visuals, and links? -->
+  <xacro:arg name="no_prefix" default="false"/>
+
+  <!-- Should an end-effector be mounted at the flange?" -->
+  <xacro:arg name="hand" default="true" />
+
+  <!-- Which end-effector would be mounted at the flange?" -->
+  <xacro:arg name="ee_type" default="openarm_hand" />
+
+
+
+  <!-- Is the robot being simulated in gazebo?" -->
+  <xacro:arg name="gazebo" default="false" />
+  <!-- If `gazebo` arg is set, to which frame shall $(arm_type)_link0 be parented. Empty string for not fixing at all -->
+  <xacro:arg name="parent" default="world" />
+  <!-- If `gazebo` arg is set and `parent` not empty, what position offset between `parent` & $(arm_type)_link0 -->
+  <xacro:arg name="xyz" default="0 0 0" />
+  <!-- If `gazebo` arg is set and `parent` not empty, what rotation offset between `parent` & $(arm_type)_link0 -->
+  <xacro:arg name="rpy" default="0 0 0" />
+
+  <!-- Is the robot being controlled with ros2_control?" -->
+  <xacro:arg name="ros2_control" default="false" />
+  <!-- IP address or hostname of the robot" -->
+  <xacro:arg name="can" default="can0" />
+  <!-- Should a fake hardware be used? -->
+  <xacro:arg name="use_fake_hardware" default="false" />
+  <!-- Should fake sensors be used? -->
+  <xacro:arg name="fake_sensor_commands" default="false" />
+  <!-- Should the robot be spawned in Gazebo with effort interfaces?" -->
+  <xacro:arg name="gazebo_effort" default="false" />
+
+  <!-- For a multi arm setup, we need a threaded robot running async-->
+  <xacro:arg name="bimanual" default="false" />
+
+  <xacro:openarm_robot arm_type="v10"
+                      joint_limits="${xacro.load_yaml('$(find openarm_description)/config/v10/joint_limits.yaml')}"
+                      inertials="${xacro.load_yaml('$(find openarm_description)/config/v10/inertials.yaml')}"
+                      kinematics="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics.yaml')}"
+                      kinematics_link="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics_link.yaml')}"
+                      gazebo="$(arg gazebo)"
+                      hand="$(arg hand)"
+                      ee_type="$(arg ee_type)"
+                      ros2_control="$(arg ros2_control)"
+                      can="$(arg can)"
+                      use_fake_hardware="$(arg use_fake_hardware)"
+                      fake_sensor_commands="$(arg fake_sensor_commands)"
+                      gazebo_effort="$(arg gazebo_effort)"
+                      no_prefix="$(arg no_prefix)"
+                      arm_prefix= ""
+                      connected_to= "base"
+                      bimanual= "$(arg bimanual)">
+  </xacro:openarm_robot>
+</robot>

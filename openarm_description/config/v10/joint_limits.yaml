@@ -1,0 +1,62 @@
+joint1:
+  limit:
+    lower: -1.396263
+    upper: 3.490659
+    velocity: 100
+    effort: 100
+
+joint2:
+  limit:
+    lower: -0.17453267320510335
+    upper: 3.3161253267948965
+    velocity: 100
+    effort: 100
+
+joint3:
+  limit:
+    lower: -1.570796
+    upper: 1.570796
+    velocity: 100
+    effort: 100
+
+joint4:
+  limit:
+    lower: 0.0
+    upper: 2.443461
+    velocity: 100
+    effort: 100
+
+joint5:
+  limit:
+    lower: -1.570796
+    upper: 1.570796
+    velocity: 100
+    effort: 100
+
+joint6:
+  limit:
+    lower: -0.785398
+    upper: 0.785398
+    velocity: 100
+    effort: 100
+
+joint7:
+  limit:
+    lower: -1.570796
+    upper: 1.570796
+    velocity: 100
+    effort: 100
+
+# joint_gripper1:
+#   limit:
+#     lower: 0.0
+#     upper: 0.043
+#     velocity: 100
+#     effort: 100
+
+# joint_gripper2:
+#   limit:
+#     lower: 0.0
+#     upper: 0.043
+#     velocity: 100
+#     effort: 100

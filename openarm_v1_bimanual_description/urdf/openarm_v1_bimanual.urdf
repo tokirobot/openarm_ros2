@@ -43,11 +43,11 @@
         <mesh filename="package://openarm_v1_bimanual_description/meshes/pedestal_v1_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
-    <inertial>
+    <!-- <inertial>
       <origin rpy="0 0 0" xyz="-0.019032202985360066 0.0002140713683395199 0.3878296171161416"/>
       <mass value="13.892221893766356"/>
       <inertia ixx="1.653382" ixy="5e-06" ixz="-0.085852" iyy="1.653298" iyz="0.000118" izz="0.051334"/>
-    </inertial>
+    </inertial> -->
   </link>
   <material name="aluminum">
     <color rgba="0.5 0.5 0.5 1"/>
