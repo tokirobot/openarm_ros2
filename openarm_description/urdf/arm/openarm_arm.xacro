@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="openarm">
 
-  <xacro:include filename="$(find openarm_description)/urdf/common/openarm_macro.xacro" />
+  <xacro:include filename="$(find openarm_description)/urdf/arm/openarm_macro.xacro" />
 
   <!-- arm_type: Namespace of the robot arm. Serves to differentiate between arms in case of multiple instances. -->
   <!-- joint_limits: description of the joint limits that comes from a YAML file. Example definition: ${xacro.load_yaml('$(find openarm_description)/robots/fr3/joint_limits.yaml')} -->

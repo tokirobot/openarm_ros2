@@ -34,8 +34,6 @@ launch
 meshes 
 rviz 
 urdf 
-urdf_body
-urdf_end_effector
 # worlds 
 config
 DESTINATION share/${PROJECT_NAME}

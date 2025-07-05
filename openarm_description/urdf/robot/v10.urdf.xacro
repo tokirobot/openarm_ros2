@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="openarm">
 
-  <xacro:include filename="$(find openarm_description)/urdf/common/openarm_robot.xacro"/>
+  <xacro:include filename="$(find openarm_description)/urdf/robot/openarm_robot.xacro"/>
 
   <!--
     DEPRECATION NOTICE
@@ -10,17 +10,16 @@
   -->
   <xacro:arg name="arm_type" default="v10" />
 
-  <!-- <xacro:arg name="body_type" default="v10" /> -->
+  <xacro:arg name="body_type" default="v10" />
 
   <!-- Don't print a prefix for joints, visuals, and links? -->
   <xacro:arg name="no_prefix" default="false"/>
 
   <!-- Should an end-effector be mounted at the flange?" -->
-  <xacro:arg name="hand" default="true" />
+  <xacro:arg name="hand" default="false" />
 
   <!-- Which end-effector would be mounted at the flange?" -->
   <xacro:arg name="ee_type" default="openarm_hand" />
-
 
 
   <!-- Is the robot being simulated in gazebo?" -->
@@ -46,22 +45,30 @@
   <!-- For a multi arm setup, we need a threaded robot running async-->
   <xacro:arg name="bimanual" default="false" />
 
-  <xacro:openarm_robot arm_type="v10"
-                      joint_limits="${xacro.load_yaml('$(find openarm_description)/config/v10/joint_limits.yaml')}"
-                      inertials="${xacro.load_yaml('$(find openarm_description)/config/v10/inertials.yaml')}"
-                      kinematics="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics.yaml')}"
-                      kinematics_link="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics_link.yaml')}"
-                      gazebo="$(arg gazebo)"
-                      hand="$(arg hand)"
-                      ee_type="$(arg ee_type)"
-                      ros2_control="$(arg ros2_control)"
-                      can="$(arg can)"
-                      use_fake_hardware="$(arg use_fake_hardware)"
-                      fake_sensor_commands="$(arg fake_sensor_commands)"
-                      gazebo_effort="$(arg gazebo_effort)"
-                      no_prefix="$(arg no_prefix)"
-                      arm_prefix= ""
-                      connected_to= "base"
-                      bimanual= "$(arg bimanual)">
-  </xacro:openarm_robot>
+  <xacro:openarm_robot
+  arm_type="v10"
+  body_type="v10"
+  joint_limits="${xacro.load_yaml('$(find openarm_description)/config/v10/joint_limits.yaml')}"
+  inertials="${xacro.load_yaml('$(find openarm_description)/config/v10/inertials.yaml')}"
+  kinematics="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics.yaml')}"
+  kinematics_link="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics_link.yaml')}"
+  body_inertials="${xacro.load_yaml('$(find openarm_description)/config/body/v10/inertials.yaml')}"
+  body_kinematics="${xacro.load_yaml('$(find openarm_description)/config/body/v10/kinematics.yaml')}"
+  body_kinematics_link="${xacro.load_yaml('$(find openarm_description)/config/body/v10/kinematics.yaml')}"
+  gazebo="$(arg gazebo)"
+  hand="$(arg hand)"
+  ee_type="$(arg ee_type)"
+  ros2_control="$(arg ros2_control)"
+  can="$(arg can)"
+  use_fake_hardware="$(arg use_fake_hardware)"
+  fake_sensor_commands="$(arg fake_sensor_commands)"
+  gazebo_effort="$(arg gazebo_effort)"
+  no_prefix="$(arg no_prefix)"
+  arm_prefix=""
+  body_prefix=""
+  arm_connected_to="base"
+  body_connected_to="world"
+  bimanual="$(arg bimanual)" />
+
+  
 </robot>
