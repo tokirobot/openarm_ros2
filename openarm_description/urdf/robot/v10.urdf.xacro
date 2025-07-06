@@ -43,7 +43,13 @@
   <xacro:arg name="gazebo_effort" default="false" />
 
   <!-- For a multi arm setup, we need a threaded robot running async-->
-  <xacro:arg name="bimanual" default="false" />
+  <xacro:arg name="bimanual" default="true" />
+
+  <xacro:arg name="right_arm_base_xyz" default="0.0 0.07 0.83" />
+  <xacro:arg name="right_arm_base_rpy" default="-1.5708 0 0" />
+
+  <xacro:arg name="left_arm_base_xyz" default="0.0 -0.07 0.83" />
+  <xacro:arg name="left_arm_base_rpy" default="1.5708 0 0" />
 
   <xacro:openarm_robot
   arm_type="v10"
@@ -68,7 +74,12 @@
   body_prefix=""
   arm_connected_to="base"
   body_connected_to="world"
-  bimanual="$(arg bimanual)" />
+  bimanual="$(arg bimanual)" 
+  right_arm_base_xyz="$(arg right_arm_base_xyz)"
+  left_arm_base_xyz="$(arg left_arm_base_rpy)"
+  right_arm_base_rpy="$(arg right_arm_base_rpy)"
+  left_arm_base_rpy="$(arg left_arm_base_rpy)"
+  />
 
   
 </robot>
