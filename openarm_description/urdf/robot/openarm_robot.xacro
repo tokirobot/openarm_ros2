@@ -14,6 +14,10 @@
             parent:='world'
             xyz:='0 0 0'
             rpy:='0 0 0'
+            xyz_ee='0 0 0'
+            xyz_rpy='0 0 0'
+            tcp_xyz='0 0 0'
+            tcp_rpy='0 0 0'
             hand:='true'
             ee_type:=none
             gazebo:='false'
@@ -41,7 +45,7 @@
     <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand.xacro" />
     <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand_macro.xacro" />
     <xacro:include filename="$(find openarm_description)/urdf/ee/${ee_type}_arguments.xacro" />
-    
+
     <xacro:property name="arm_prefix_modified" value="${'' if arm_prefix == '' else arm_prefix + '_'}" />
     <xacro:property name="body_prefix_modified" value="${'' if body_prefix == '' else body_prefix + '_'}" />
 

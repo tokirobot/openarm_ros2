@@ -75,6 +75,10 @@
   arm_connected_to="base"
   body_connected_to="world"
   bimanual="$(arg bimanual)" 
+  xyz_ee='0 0 0'
+  xyz_rpy='0 0 0'
+  tcp_xyz='0 0 0'
+  tcp_rpy='0 0 0'
   right_arm_base_xyz="$(arg right_arm_base_xyz)"
   left_arm_base_xyz="$(arg left_arm_base_xyz)"
   right_arm_base_rpy="$(arg right_arm_base_rpy)"
