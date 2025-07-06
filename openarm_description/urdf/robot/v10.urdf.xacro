@@ -12,15 +12,13 @@
 
   <xacro:arg name="body_type" default="v10" />
 
+  <xacro:arg name="ee_type" default="openarm_hand" />
+
   <!-- Don't print a prefix for joints, visuals, and links? -->
   <xacro:arg name="no_prefix" default="false"/>
 
   <!-- Should an end-effector be mounted at the flange?" -->
   <xacro:arg name="hand" default="true" />
-
-  <!-- Which end-effector would be mounted at the flange?" -->
-  <xacro:arg name="ee_type" default="openarm_hand" />
-
 
   <!-- Is the robot being simulated in gazebo?" -->
   <xacro:arg name="gazebo" default="false" />

@@ -13,9 +13,9 @@ hand:
 
 leftfinger: &finger
   origin:
-    xyz: 0 0 0
+    xyz: 0.00064528 0.017020 0.0219685
     rpy: 0 0 0
-  mass: 0.015
+  mass: 0.03602545343277134
   inertia:
     xx: 2.3749999999999997e-06
     yy: 2.3749999999999997e-06

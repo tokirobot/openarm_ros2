@@ -35,19 +35,4 @@
     kinematics_link="${kinematics_link}" />
     </xacro:macro>
 
-    <!-- for bimanual right side-->
-    <!-- <joint name="${body_type}_body_to_right_${arm_type}_joint" type="fixed">
-      <origin xyz="0.3 -0.2 0.4" rpy="0 0 0" />
-      <parent link="body_link0" />
-      <child link="right_${arm_type}_link0" />
-    </joint> -->
-    
-    <!-- for bimanual left side-->
-    <!-- <joint name="${body_type}_body_to_left_${arm_type}_joint" type="fixed">
-      <origin xyz="0.3 0.2 0.4" rpy="0 0 0" />
-      <parent link="body_link0" />
-      <child link="left_${arm_type}_link0" />
-    </joint> -->
-
-
 </robot>

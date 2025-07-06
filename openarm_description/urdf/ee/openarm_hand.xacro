@@ -14,7 +14,8 @@
       </joint>
     </xacro:unless>
 
-    <xacro:ee_link_with_sc name="hand" gazebo="${gazebo}" />
+    <!-- <xacro:ee_link_with_sc name="hand" gazebo="${gazebo}" prefix="${ee_prefix}" ee_kinematics_link="${ee_kinematics_link}"/> -->
+    <link name="${ee_prefix}hand"/>
 
     <!-- Define the hand_tcp frame -->
     <link name="${ee_prefix}hand_tcp" />
@@ -27,10 +28,17 @@
 
     <link name="${ee_prefix}leftfinger">
       <visual name="${ee_prefix}leftfinger_visual">
+        <xacro:openarm-ee-kinematics-link config="${ee_kinematics_link}" name="leftfinger" />
         <geometry>
           <mesh filename="package://${description_pkg}/meshes/ee/${ee_type}/visual/finger.dae" scale="0.001 0.001 0.001"/>
         </geometry>
       </visual>
+      <collision name="${ee_prefix}leftfinger_collision">
+        <xacro:openarm-ee-kinematics-link config="${ee_kinematics_link}" name="leftfinger" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/ee/${ee_type}/collision/finger.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
       <xacro:if value="${gazebo}">
         <xacro:ee-inertials name="leftfinger" />
       </xacro:if>
@@ -38,32 +46,36 @@
 
     <link name="${ee_prefix}rightfinger">
       <visual name="${ee_prefix}rightfinger_visual">
-        <origin xyz="0 0 0" rpy="0 0 ${pi}" />
+        <xacro:openarm-ee-kinematics-link config="${ee_kinematics_link}" name="rightfinger" />
         <geometry>
-          <mesh filename="package://${description_pkg}/meshes/ee/${ee_type}/visual/finger.dae" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://${description_pkg}/meshes/ee/${ee_type}/visual/finger.dae" scale="0.001 -0.001 0.001"/>
         </geometry>
       </visual>
+      <collision name="${ee_prefix}rightfinger_collision">
+        <xacro:openarm-ee-kinematics-link config="${ee_kinematics_link}" name="leftfinger" />
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/ee/${ee_type}/collision/finger.stl" scale="0.001 -0.001 0.001" />
+        </geometry>
+      </collision>
       <xacro:if value="${gazebo}">
         <xacro:ee-inertials name="rightfinger" />
       </xacro:if>
     </link>
 
-
     <joint name="${ee_prefix}finger_joint1" type="prismatic">
       <parent link="${ee_prefix}hand" />
       <child link="${ee_prefix}leftfinger" />
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <axis xyz="0 1 0" />
-      <limit effort="100" lower="0.0" upper="0.04" velocity="0.2" />
+      <axis xyz="0 -1 0" />
+      <limit effort="100" lower="0.0" upper="0.044" velocity="0.2" />
     </joint>
-
 
     <joint name="${ee_prefix}finger_joint2" type="prismatic">
       <parent link="${ee_prefix}hand" />
       <child link="${ee_prefix}rightfinger" />
-      <origin xyz="0 0 0.0" rpy="0 0 0" />
-      <axis xyz="0 -1 0" />
-      <limit effort="100" lower="0.0" upper="0.04" velocity="0.2" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit effort="100" lower="0.0" upper="0.044" velocity="0.2" />
       <mimic joint="${ee_prefix}finger_joint1" />
     </joint>
 
