@@ -51,4 +51,16 @@
 
   </xacro:macro>
 
+  <xacro:macro name="openarm-ee-kinematics" params="config name">
+      <xacro:property name="kinematics" value="${config[name]['kinematic']}" lazy_eval="false" />
+      <origin rpy="${kinematics.roll} ${kinematics.pitch} ${kinematics.yaw}"
+            xyz="${kinematics.x} ${kinematics.y} ${kinematics.z}" />
+  </xacro:macro>
+
+  <xacro:macro name="openarm-ee-kinematics-link" params="config name">
+    <xacro:property name="kinematics_link" value="${config[name]['kinematic']}" lazy_eval="false" />
+    <origin rpy="${kinematics_link.roll} ${kinematics_link.pitch} ${kinematics_link.yaw}"
+            xyz="${kinematics_link.x} ${kinematics_link.y} ${kinematics_link.z}" />
+  </xacro:macro>
+
 </robot>

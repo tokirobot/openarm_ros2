@@ -13,6 +13,14 @@
     <!-- Define a property that defaults to 'arm_prefix_arm_type' concatenated with an underscore if 'no_prefix' is not set -->
     <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" />
 
+    <xacro:if value="${arm_prefix == 'right_'}">
+      <xacro:property name="reflect" value="-1" />
+    </xacro:if>
+
+    <xacro:unless value="${arm_prefix == 'right_'}">
+      <xacro:property name="reflect" value="1" />
+    </xacro:unless>
+
     <xacro:if value="${gazebo}">
       <xacro:property name="connected_to" value="" />
     </xacro:if>
@@ -27,9 +35,9 @@
       </joint>
     </xacro:unless>
 
-    <xacro:link_with_sc no_prefix="${no_prefix}" name="link0" gazebo="${gazebo}" kinematics_link="${kinematics_link}"/>
+    <xacro:link_with_sc no_prefix="${no_prefix}" name="link0" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
-    <xacro:link_with_sc no_prefix="${no_prefix}" name="link1" gazebo="${gazebo}" kinematics_link="${kinematics_link}"/>
+    <xacro:link_with_sc no_prefix="${no_prefix}" name="link1" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
     <joint name="${prefix}joint1" type="revolute">
       <xacro:openarm-kinematics name="joint1" config="${kinematics}" />
@@ -39,7 +47,7 @@
       <xacro:openarm-limits name="joint1" config="${joint_limits}" />
     </joint>
 
-    <xacro:link_with_sc no_prefix="${no_prefix}" name="link2" gazebo="${gazebo}" kinematics_link="${kinematics_link}"/>
+    <xacro:link_with_sc no_prefix="${no_prefix}" name="link2" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
     <joint name="${prefix}joint2" type="revolute">
       <xacro:openarm-kinematics name="joint2" config="${kinematics}" />
@@ -49,7 +57,7 @@
       <xacro:openarm-limits name="joint2" config="${joint_limits}" />
     </joint>
 
-    <xacro:link_with_sc no_prefix="${no_prefix}" name="link3" gazebo="${gazebo}" kinematics_link="${kinematics_link}" />
+    <xacro:link_with_sc no_prefix="${no_prefix}" name="link3" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
     <joint name="${prefix}joint3" type="revolute">
       <xacro:openarm-kinematics name="joint3" config="${kinematics}" />
@@ -69,7 +77,7 @@
       <xacro:openarm-limits name="joint4" config="${joint_limits}" />
     </joint>
 
-    <xacro:link_with_sc no_prefix="${no_prefix}" name="link5" gazebo="${gazebo}" kinematics_link="${kinematics_link}" />
+    <xacro:link_with_sc no_prefix="${no_prefix}" name="link5" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}" />
 
     <joint name="${prefix}joint5" type="revolute">
       <xacro:openarm-kinematics name="joint5" config="${kinematics}" />
@@ -79,7 +87,7 @@
       <xacro:openarm-limits name="joint5" config="${joint_limits}" />
     </joint>
 
-    <xacro:link_with_sc no_prefix="${no_prefix}" name="link6" gazebo="${gazebo}" kinematics_link="${kinematics_link}"/>
+    <xacro:link_with_sc no_prefix="${no_prefix}" name="link6" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
     <joint name="${prefix}joint6" type="revolute">
       <xacro:openarm-kinematics name="joint6" config="${kinematics}" />
@@ -89,7 +97,7 @@
       <xacro:openarm-limits name="joint6" config="${joint_limits}" />
     </joint>
 
-    <xacro:link_with_sc no_prefix="${no_prefix}" name="link7" gazebo="${gazebo}" rpy="0 0 0"  kinematics_link="${kinematics_link}"/>
+    <xacro:link_with_sc no_prefix="${no_prefix}" name="link7" gazebo="${gazebo}" rpy="0 0 0"  kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
     <joint name="${prefix}joint7" type="revolute">
       <xacro:openarm-kinematics name="joint7" config="${kinematics}" />

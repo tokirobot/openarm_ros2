@@ -33,19 +33,19 @@
   <!-- rpy:   Rotation of the *_sc link relative to parent [rad]  -->
   <!-- self_collision_geometries:  self <collision> models        -->
   <!-- ========================================================== -->
-  <xacro:macro name="link_with_sc" params="name no_prefix:='false' rpy:='0 0 0' gazebo:=false kinematics_link">
+  <xacro:macro name="link_with_sc" params="name no_prefix:='false' rpy:='0 0 0' gazebo:=false kinematics_link reflect:=1">
     <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" />
     <link name="${prefix}${name}">
       <visual name="${prefix}${name}_visual">
         <xacro:openarm-kinematics-link config="${kinematics_link}" name="${name}" />
         <geometry>
-          <mesh filename="package://${description_pkg}/meshes/arm/${arm_type}/visual/${name}.dae" scale="0.001 0.001 0.001" />
+          <mesh filename="package://${description_pkg}/meshes/arm/${arm_type}/visual/${name}.dae" scale="0.001 ${0.001*reflect} 0.001" />
         </geometry>
       </visual>
       <collision name="${prefix}${name}_collision">
         <xacro:openarm-kinematics-link config="${kinematics_link}" name="${name}" />
         <geometry>
-          <mesh filename="package://openarm_description/meshes/arm/${arm_type}/collision/${name}_symp.stl" scale="0.001 0.001 0.001" />
+          <mesh filename="package://openarm_description/meshes/arm/${arm_type}/collision/${name}_symp.stl" scale="0.001 ${0.001*reflect} 0.001" />
           <!-- <mesh filename="package://openarm_description/meshes/arm/${arm_type}/collision/${name}.stl" scale="0.001 0.001 0.001" /> -->
         </geometry>
       </collision>

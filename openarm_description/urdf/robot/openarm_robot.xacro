@@ -10,6 +10,7 @@
             body_inertials
             body_kinematics
             body_kinematics_link
+            ee_kinematics_link
             parent:='world'
             xyz:='0 0 0'
             rpy:='0 0 0'
@@ -91,9 +92,7 @@
         kinematics="${kinematics}"
         kinematics_link="${kinematics_link}" />
 
- 
     </xacro:if>
-
 
     <xacro:if value="${not bimanual}">
         
@@ -114,7 +113,7 @@
         <xacro:if value="${hand and ee_type == 'openarm_hand'}">
         <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand.xacro"/>
         <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand_macro.xacro" />
-        <xacro:include filename="$(find openarm_description)/urdf/${ee_type}_arguments.xacro" />
+        <xacro:include filename="$(find openarm_description)/urdf/ee/${ee_type}_arguments.xacro" />
 
         <xacro:property name="special_connection" value="$(arg special_connection)" />
         <xacro:property name="connection" value="${special_connection if special_connection != '' else arm_type + '_link8'}" />
@@ -123,6 +122,7 @@
             arm_type="${arm_type}"
             arm_prefix="${arm_prefix_modified}"
             ee_type="${ee_type}"
+            ee_kinematics_link="${xacro.load_yaml('$(find openarm_description)/config/hand/openarm_hand/kinematics_link.yaml')}"
             ee_inertials="${xacro.load_yaml('$(find openarm_description)/config/hand/$(arg ee_type)/hand_inertials.yaml')}"
             rpy_ee="$(arg rpy_ee)"
             xyz_ee="$(arg xyz_ee)"
@@ -136,11 +136,10 @@
         <xacro:if value="${hand and ee_type != 'none' and ee_type != 'openarm_hand'}">
         <xacro:include filename="$(find openarm_description)/urdf/ee/ee_with_one_link.xacro"/>
         <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand_macro.xacro" />
-        <xacro:include filename="$(find openarm_description)/urdf/${ee_type}_arguments.xacro" />
+        <xacro:include filename="$(find openarm_description)/urdf/ee/${ee_type}_arguments.xacro" />
         <xacro:property name="special_connection" value="$(arg special_connection)" />
 
         <xacro:property name="connection" value="${special_connection if special_connection == '' else arm_type + '_link8'}" />
-
 
         <xacro:ee_with_one_link
             connected_to="${arm_prefix_modified}${connection}"
@@ -148,6 +147,7 @@
             arm_prefix="${arm_prefix_modified}"
             ee_type="${ee_type}"
             ee_inertials="${xacro.load_yaml('$(find openarm_description)/config/hand/$(arg ee_type)_inertials.yaml')}"
+            ee_kinematics_link="${xacro.load_yaml('$(find openarm_description)/config/hand/openarm_hand/kinematics_link.yaml')}"
             rpy_ee="$(arg rpy_ee)"
             xyz_ee="$(arg xyz_ee)"
             tcp_xyz="$(arg tcp_xyz)"

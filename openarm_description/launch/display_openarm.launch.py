@@ -24,10 +24,10 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 
-def robot_state_publisher_spawner(context: LaunchContext, arm_type, ee_type, use_bimanual):
+def robot_state_publisher_spawner(context: LaunchContext, arm_type, ee_type, bimanual):
     arm_type_str = context.perform_substitution(arm_type)
     ee_type_str = context.perform_substitution(ee_type)
-    use_bimanual_str = context.perform_substitution(use_bimanual)
+    bimanual_str = context.perform_substitution(bimanual)
 
     xacro_path = os.path.join(
         get_package_share_directory("openarm_description"),
@@ -39,7 +39,7 @@ def robot_state_publisher_spawner(context: LaunchContext, arm_type, ee_type, use
         mappings={
             "arm_type": arm_type_str,
             "ee_type": ee_type_str,
-            "use_bimanual": use_bimanual_str,
+            "bimanual": bimanual_str,
         }
     ).toprettyxml(indent="  ")
 
@@ -66,19 +66,19 @@ def generate_launch_description():
         description="Type of end-effector to attach (e.g., openarm_hand or none)"
     )
 
-    use_bimanual_arg = DeclareLaunchArgument(
-        "use_bimanual",
+    bimanual_arg = DeclareLaunchArgument(
+        "bimanual",
         default_value="false",
         description="Whether to use bimanual configuration"
     )
 
     arm_type = LaunchConfiguration("arm_type")
     ee_type = LaunchConfiguration("ee_type")
-    use_bimanual = LaunchConfiguration("use_bimanual")
+    bimanual = LaunchConfiguration("bimanual")
 
     robot_state_publisher_loader = OpaqueFunction(
         function=robot_state_publisher_spawner,
-        args=[arm_type, ee_type, use_bimanual]
+        args=[arm_type, ee_type, bimanual]
     )
 
     rviz_config_path = os.path.join(
@@ -89,7 +89,7 @@ def generate_launch_description():
     return LaunchDescription([
         arm_type_arg,
         ee_type_arg,
-        use_bimanual_arg,
+        bimanual_arg,
         robot_state_publisher_loader,
         Node(
             package="joint_state_publisher_gui",
