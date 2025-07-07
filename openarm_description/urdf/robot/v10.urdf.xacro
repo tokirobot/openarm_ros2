@@ -44,11 +44,11 @@
   <xacro:arg name="bimanual" default="false" />
 
   <!-- used in bimanual -->
-  <xacro:arg name="right_arm_base_xyz" default="0.0 0.07 0.83" />
-  <xacro:arg name="right_arm_base_rpy" default="-1.5708 0 0" />
+  <xacro:arg name="right_arm_base_xyz" default="0.0 -0.07 0.83" />
+  <xacro:arg name="right_arm_base_rpy" default="1.5708 0 0" />
 
-  <xacro:arg name="left_arm_base_xyz" default="0.0 -0.07 0.83" />
-  <xacro:arg name="left_arm_base_rpy" default="1.5708 0 0" />
+  <xacro:arg name="left_arm_base_xyz" default="0.0 0.07 0.83" />
+  <xacro:arg name="left_arm_base_rpy" default="-1.5708 0 0" />
 
   <xacro:openarm_robot
   arm_type="v10"
@@ -57,6 +57,7 @@
   inertials="${xacro.load_yaml('$(find openarm_description)/config/v10/inertials.yaml')}"
   kinematics="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics.yaml')}"
   kinematics_link="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics_link.yaml')}"
+  kinematics_offset="${xacro.load_yaml('$(find openarm_description)/config/v10/kinematics_offset.yaml')}"
   body_inertials="${xacro.load_yaml('$(find openarm_description)/config/body/v10/inertials.yaml')}"
   body_kinematics="${xacro.load_yaml('$(find openarm_description)/config/body/v10/kinematics.yaml')}"
   body_kinematics_link="${xacro.load_yaml('$(find openarm_description)/config/body/v10/kinematics.yaml')}"

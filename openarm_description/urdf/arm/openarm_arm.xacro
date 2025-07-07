@@ -8,7 +8,7 @@
   <!-- kinematics: description of the kinematics that comes from a YAML file. Example definition: ${xacro.load_yaml('$(find openarm_description)/robots/fr3/kinematics.yaml')} -->
   <!-- inertials: description of the inertials that comes from a YAML file. Example definition: ${xacro.load_yaml('$(find openarm_description)/robots/fr3/inertials.yaml')} -->
 
-  <xacro:macro name="openarm_arm" params="arm_type arm_prefix:='' no_prefix:=false description_pkg:='openarm_description' connected_to:='base' xyz:='0 0 0' rpy:='0 0 0' gazebo:='false' joint_limits inertials kinematics kinematics_link" >
+  <xacro:macro name="openarm_arm" params="arm_type arm_prefix:='' no_prefix:=false description_pkg:='openarm_description' connected_to:='base' xyz:='0 0 0' rpy:='0 0 0' gazebo:='false' joint_limits inertials kinematics kinematics_link kinematics_offset:=none " >
 
     <!-- Define a property that defaults to 'arm_prefix_arm_type' concatenated with an underscore if 'no_prefix' is not set -->
     <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" />
@@ -50,13 +50,13 @@
     <xacro:link_with_sc no_prefix="${no_prefix}" name="link2" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
     <joint name="${prefix}joint2" type="revolute">
-      <xacro:openarm-kinematics name="joint2" config="${kinematics}" />
+      <xacro:openarm-kinematics name="joint2" config="${kinematics}" offset="${kinematics_offset}" />
       <parent link="${prefix}link1" />
       <child link="${prefix}link2" />
       <axis xyz="-1 0 0" />
       <xacro:openarm-limits name="joint2" config="${joint_limits}" />
     </joint>
-
+    
     <xacro:link_with_sc no_prefix="${no_prefix}" name="link3" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
     <joint name="${prefix}joint3" type="revolute">

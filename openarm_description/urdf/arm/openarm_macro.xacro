@@ -33,7 +33,7 @@
   <!-- rpy:   Rotation of the *_sc link relative to parent [rad]  -->
   <!-- self_collision_geometries:  self <collision> models        -->
   <!-- ========================================================== -->
-  <xacro:macro name="link_with_sc" params="name no_prefix:='false' rpy:='0 0 0' gazebo:=false kinematics_link reflect:=1">
+  <xacro:macro name="link_with_sc" params="name no_prefix:='false' rpy:='0 0 0' gazebo:=false kinematics_link:=''  reflect:=1">
     <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" />
     <link name="${prefix}${name}">
       <visual name="${prefix}${name}_visual">
@@ -188,10 +188,19 @@
   <!-- config - YAML struct defining joint kinematics (e.g. fer/kinematics.yaml) -->
   <!-- name   - Name of the joint for which to add kinematics to                 -->
   <!-- ========================================================================= -->
-  <xacro:macro name="openarm-kinematics" params="config name">
-      <xacro:property name="kinematics" value="${config[name]['kinematic']}" lazy_eval="false" />
-      <origin rpy="${kinematics.roll} ${kinematics.pitch} ${kinematics.yaw}"
-             xyz="${kinematics.x} ${kinematics.y} ${kinematics.z}" />
+  <xacro:macro name="openarm-kinematics" params="name config offset:=none">
+    <xacro:property name="kinematics" value="${config[name]['kinematic']}" lazy_eval="false" />
+    <xacro:if value="${offset != 'none'}">
+      <xacro:property name="offset" value="${offset[name]['kinematic_offset']}" lazy_eval="false" />
+      <origin
+        xyz="${kinematics.x + offset.x} ${kinematics.y + offset.y} ${kinematics.z + offset.z}"
+        rpy="${kinematics.roll + offset.roll} ${kinematics.pitch + offset.pitch} ${kinematics.yaw + offset.yaw}" />
+    </xacro:if>
+    <xacro:unless value="${offset != 'none'}">
+      <origin
+        xyz="${kinematics.x} ${kinematics.y} ${kinematics.z}"
+        rpy="${kinematics.roll} ${kinematics.pitch} ${kinematics.yaw}" />
+    </xacro:unless>
   </xacro:macro>
 
   <xacro:macro name="openarm-kinematics-link" params="config name">
