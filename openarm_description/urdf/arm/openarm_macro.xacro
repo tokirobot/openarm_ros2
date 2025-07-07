@@ -170,31 +170,45 @@
   <!-- config - YAML struct defining joint limits (e.g. fer/joint_limits.yaml)   -->
   <!-- name   - Name of the joint for which to add limits to                     -->
   <!-- ========================================================================= -->
-  <xacro:macro name="openarm-limits" params="config name">
-      <xacro:property name="limits" value="${config[name]['limit']}" lazy_eval="false" />
-      <limit lower="${limits.lower}"
-             upper="${limits.upper}"
-             effort="${limits.effort}"
-             velocity="${limits.velocity}" />
-      <!-- <safety_controller k_position="100.0"
-                         k_velocity="40.0"
-                         soft_lower_limit="${limits.lower}"
-                         soft_upper_limit="${limits.upper}" /> -->
+  <xacro:macro name="openarm-limits" params="name config reflect:=1 offset:=0">
+    <xacro:property name="limits" value="${config[name]['limit']}" lazy_eval="false"/>
+  
+    <xacro:property name="raw_lower" value="${limits.lower * reflect + offset}" />
+    <xacro:property name="raw_upper" value="${limits.upper * reflect + offset}" />
+  
+    <xacro:property name="lower" value="0.0" />
+    <xacro:property name="upper" value="0.0" />
+  
+    <xacro:if value="${raw_lower &lt; raw_upper}">
+      <xacro:property name="lower" value="${raw_lower}" />
+      <xacro:property name="upper" value="${raw_upper}" />
+    </xacro:if>
+  
+    <xacro:unless value="${raw_lower &lt; raw_upper}">
+      <xacro:property name="lower" value="${raw_upper}" />
+      <xacro:property name="upper" value="${raw_lower}" />
+    </xacro:unless>
+  
+    <limit
+      lower="${lower}"
+      upper="${upper}"
+      effort="${limits.effort}"
+      velocity="${limits.velocity}" />
   </xacro:macro>
-
+  
   <!-- ========================================================================= -->
   <!-- Adds the <kinematics ... /> tag given a config file of joint kinematics   -->
   <!--                                                                           -->
   <!-- config - YAML struct defining joint kinematics (e.g. fer/kinematics.yaml) -->
   <!-- name   - Name of the joint for which to add kinematics to                 -->
   <!-- ========================================================================= -->
-  <xacro:macro name="openarm-kinematics" params="name config offset:=none">
+  <xacro:macro name="openarm-kinematics" params="name config offset:=none reflect:=1">
     <xacro:property name="kinematics" value="${config[name]['kinematic']}" lazy_eval="false" />
     <xacro:if value="${offset != 'none'}">
       <xacro:property name="offset" value="${offset[name]['kinematic_offset']}" lazy_eval="false" />
       <origin
         xyz="${kinematics.x + offset.x} ${kinematics.y + offset.y} ${kinematics.z + offset.z}"
-        rpy="${kinematics.roll + offset.roll} ${kinematics.pitch + offset.pitch} ${kinematics.yaw + offset.yaw}" />
+        rpy="${kinematics.roll + reflect*offset.roll} ${kinematics.pitch +  reflect*offset.pitch} ${kinematics.yaw +  reflect*offset.yaw}" />
     </xacro:if>
     <xacro:unless value="${offset != 'none'}">
       <origin

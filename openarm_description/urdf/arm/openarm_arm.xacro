@@ -14,11 +14,11 @@
     <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" />
 
     <xacro:if value="${arm_prefix == 'right_'}">
-      <xacro:property name="reflect" value="-1" />
+      <xacro:property name="reflect" value="1" />
     </xacro:if>
 
     <xacro:unless value="${arm_prefix == 'right_'}">
-      <xacro:property name="reflect" value="1" />
+      <xacro:property name="reflect" value="-1" />
     </xacro:unless>
 
     <xacro:if value="${gazebo}">
@@ -40,7 +40,7 @@
     <xacro:link_with_sc no_prefix="${no_prefix}" name="link1" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
     <joint name="${prefix}joint1" type="revolute">
-      <xacro:openarm-kinematics name="joint1" config="${kinematics}" />
+      <xacro:openarm-kinematics name="joint1" config="${kinematics}" reflect="${reflect}"/>
       <parent link="${prefix}link0" />
       <child link="${prefix}link1" />
       <axis xyz="0 0 1" />
@@ -49,12 +49,20 @@
 
     <xacro:link_with_sc no_prefix="${no_prefix}" name="link2" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
 
+    <xacro:if value="${prefix.find('right_') != -1}">
+      <xacro:property name="limit_offset_joint2" value="${pi/2}" />
+    </xacro:if>
+    
+    <xacro:if value="${prefix.find('left_') != -1}">
+      <xacro:property name="limit_offset_joint2" value="${-pi/2}" />
+    </xacro:if>
+
     <joint name="${prefix}joint2" type="revolute">
-      <xacro:openarm-kinematics name="joint2" config="${kinematics}" offset="${kinematics_offset}" />
+      <xacro:openarm-kinematics name="joint2" config="${kinematics}" offset="${kinematics_offset}" reflect="${reflect}"/>
       <parent link="${prefix}link1" />
       <child link="${prefix}link2" />
       <axis xyz="-1 0 0" />
-      <xacro:openarm-limits name="joint2" config="${joint_limits}" />
+      <xacro:openarm-limits name="joint2" config="${joint_limits}" reflect="${reflect}" offset="${limit_offset_joint2}"/>
     </joint>
     
     <xacro:link_with_sc no_prefix="${no_prefix}" name="link3" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
