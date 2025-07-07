@@ -47,7 +47,10 @@
       <xacro:openarm-limits name="joint1" config="${joint_limits}" />
     </joint>
 
+    <!-- for bimanual offset -->
     <xacro:link_with_sc no_prefix="${no_prefix}" name="link2" gazebo="${gazebo}" kinematics_link="${kinematics_link}" reflect="${reflect}"/>
+
+    <xacro:property name="limit_offset_joint2" value="0" />
 
     <xacro:if value="${prefix.find('right_') != -1}">
       <xacro:property name="limit_offset_joint2" value="${pi/2}" />
@@ -56,6 +59,7 @@
     <xacro:if value="${prefix.find('left_') != -1}">
       <xacro:property name="limit_offset_joint2" value="${-pi/2}" />
     </xacro:if>
+
 
     <joint name="${prefix}joint2" type="revolute">
       <xacro:openarm-kinematics name="joint2" config="${kinematics}" offset="${kinematics_offset}" reflect="${reflect}"/>
