@@ -45,6 +45,7 @@
     <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand.xacro" />
     <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand_macro.xacro" />
     <xacro:include filename="$(find openarm_description)/urdf/ee/${ee_type}_arguments.xacro" />
+    <xacro:include filename="$(find openarm_description)/urdf/ros2_control/openarm.ros2_control.xacro" />
 
     <xacro:property name="arm_prefix_modified" value="${'' if arm_prefix == '' else arm_prefix + '_'}" />
     <xacro:property name="body_prefix_modified" value="${'' if body_prefix == '' else body_prefix + '_'}" />
@@ -79,6 +80,18 @@
         kinematics="${kinematics}"
         kinematics_link="${kinematics_link}" />
 
+        <xacro:openarm_arm_ros2_control
+        arm_type="${arm_type}"
+        arm_prefix="left_"
+        can="can1"
+        use_fake_hardware="${use_fake_hardware}"
+        fake_sensor_commands="${fake_sensor_commands}"
+        gazebo="${gazebo}"
+        gazebo_effort="${gazebo_effort}"
+        hand="${hand}"
+        bimanual="true"
+      />
+
         <!-- right arm -->
         <xacro:openarm_arm 
         arm_type="${arm_type}"
@@ -93,6 +106,19 @@
         inertials="${inertials}"
         kinematics="${kinematics}"
         kinematics_link="${kinematics_link}" />
+
+        <xacro:openarm_arm_ros2_control
+        arm_type="${arm_type}"
+        arm_prefix="right_"
+        can="can0"
+        use_fake_hardware="${use_fake_hardware}"
+        fake_sensor_commands="${fake_sensor_commands}"
+        gazebo="${gazebo}"
+        gazebo_effort="${gazebo_effort}"
+        hand="${hand}"
+        bimanual="true"
+      />
+
 
         <xacro:if value="${hand and ee_type == 'openarm_hand'}">
             <xacro:openarm_hand
@@ -141,6 +167,18 @@
         kinematics_link="${kinematics_link}"
         inertials="${inertials}"
         connected_to=""
+        />
+
+        <xacro:openarm_arm_ros2_control
+            arm_type="${arm_type}"
+            arm_prefix="${arm_prefix_modified}"
+            can="${can}"
+            use_fake_hardware="${use_fake_hardware}"
+            fake_sensor_commands="${fake_sensor_commands}"
+            gazebo="${gazebo}"
+            gazebo_effort="${gazebo_effort}"
+            hand="${hand}"
+            bimanual="false"
         />
 
         <xacro:if value="${hand and ee_type == 'openarm_hand'}">
