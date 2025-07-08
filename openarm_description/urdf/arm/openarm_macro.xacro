@@ -7,22 +7,26 @@
   <!-- name:     Name of the robot link (without prefix)              -->
   <!-- inertial: Dictionary of inertia properties (see inertial.yaml) -->
   <!-- ============================================================== -->
-  <xacro:macro name="openarm-inertials" params="name inertials:=^">
-      <xacro:unless value="${name in inertials}">${xacro.warning('No inertia properties defined for: ' + name)}</xacro:unless>
-      <xacro:if value="${name in inertials}">
-        <!-- Access inertia properties of link 'name' -->
-        <xacro:property name="link_inertials" value="${inertials[name]}" lazy_eval="false" />
-        <inertial>
-          <origin rpy="${link_inertials.origin.rpy}" xyz="${link_inertials.origin.xyz}" />
-          <mass value="${link_inertials.mass}" />
-          <xacro:if value="${'inertia' in link_inertials}">
-            <xacro:property name="I" value="${link_inertials.inertia}" />
-            <inertia ixx="${I.xx}" ixy="${I.xy}" ixz="${I.xz}" iyy="${I.yy}" iyz="${I.yz}" izz="${I.zz}" />
-          </xacro:if>
-        </inertial>
-      </xacro:if>
+  <xacro:macro name="openarm-inertials" params="name inertials:=^ reflect:=1">
+    <xacro:unless value="${name in inertials}">
+      ${xacro.warning('No inertia properties defined for: ' + name)}
+    </xacro:unless>
+    <xacro:if value="${name in inertials}">
+      <xacro:property name="I" value="${inertials[name]}" lazy_eval="false" />
+      <inertial>
+        <origin
+          xyz="${I.origin.x} ${reflect * I.origin.y} ${I.origin.z}"
+          rpy="${I.origin.roll} ${I.origin.pitch} ${I.origin.yaw}" />
+        <mass value="${I.mass}" />
+        <xacro:if value="${'inertia' in I}">
+          <xacro:property name="inert" value="${I.inertia}" />
+          <inertia ixx="${inert.xx}" ixy="${inert.xy}" ixz="${inert.xz}"
+                   iyy="${inert.yy}" iyz="${inert.yz}" izz="${inert.zz}" />
+        </xacro:if>
+      </inertial>
+    </xacro:if>
   </xacro:macro>
-
+  
   <!-- ========================================================== -->
   <!-- Macro to add a single link, both with                      -->
   <!--  * detailed meshes for environmental collision checking    -->
@@ -34,7 +38,8 @@
   <!-- self_collision_geometries:  self <collision> models        -->
   <!-- ========================================================== -->
   <xacro:macro name="link_with_sc" params="name no_prefix:='false' rpy:='0 0 0' gazebo:=false kinematics_link:=''  reflect:=1">
-    <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" />
+    <!-- <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" /> -->
+    <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + 'openarm' + '_'}" />
     <link name="${prefix}${name}">
       <visual name="${prefix}${name}_visual">
         <xacro:openarm-kinematics-link config="${kinematics_link}" name="${name}" />
@@ -171,8 +176,7 @@
   <!-- name   - Name of the joint for which to add limits to                     -->
   <!-- ========================================================================= -->
   <xacro:macro name="openarm-limits" params="name config reflect:=1 offset:=0">
-    <xacro:property name="limits" value="${config[name]['limit']}" lazy_eval="false"/>
-  
+    <xacro:property name="limits" value="${config[name]['limit']}"/>
     <xacro:property name="raw_lower" value="${limits.lower * reflect + offset}" />
     <xacro:property name="raw_upper" value="${limits.upper * reflect + offset}" />
   
@@ -208,12 +212,12 @@
       <xacro:property name="offset" value="${offset[name]['kinematic_offset']}" lazy_eval="false" />
       <origin
         xyz="${kinematics.x + offset.x} ${kinematics.y + offset.y} ${kinematics.z + offset.z}"
-        rpy="${kinematics.roll + reflect*offset.roll} ${kinematics.pitch +  reflect*offset.pitch} ${kinematics.yaw +  reflect*offset.yaw}" />
+        rpy="${reflect*(kinematics.roll + offset.roll)} ${reflect*(kinematics.pitch + offset.pitch)} ${reflect*(kinematics.yaw + offset.yaw)}" />
     </xacro:if>
     <xacro:unless value="${offset != 'none'}">
       <origin
         xyz="${kinematics.x} ${kinematics.y} ${kinematics.z}"
-        rpy="${kinematics.roll} ${kinematics.pitch} ${kinematics.yaw}" />
+        rpy="${reflect*kinematics.roll} ${reflect*kinematics.pitch} ${reflect*kinematics.yaw}" />
     </xacro:unless>
   </xacro:macro>
 

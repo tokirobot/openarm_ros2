@@ -11,7 +11,7 @@ hand:
     xz: 0
     yz: 0
 
-leftfinger: &finger
+left_finger: &finger
   origin:
     xyz: 0.00064528 0.017020 0.0219685
     rpy: 0 0 0
@@ -23,4 +23,4 @@ leftfinger: &finger
     xy: 0
     xz: 0
     yz: 0
-rightfinger: *finger
+right_finger: *finger

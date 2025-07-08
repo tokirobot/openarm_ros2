@@ -11,7 +11,9 @@
   <xacro:macro name="openarm_arm" params="arm_type arm_prefix:='' no_prefix:=false description_pkg:='openarm_description' connected_to:='base' xyz:='0 0 0' rpy:='0 0 0' gazebo:='false' joint_limits inertials kinematics kinematics_link kinematics_offset:=none " >
 
     <!-- Define a property that defaults to 'arm_prefix_arm_type' concatenated with an underscore if 'no_prefix' is not set -->
-    <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" />
+     
+    <!-- <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" /> -->
+    <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + 'openarm' + '_'}" />
 
     <xacro:if value="${arm_prefix == 'right_'}">
       <xacro:property name="reflect" value="1" />
@@ -59,7 +61,6 @@
     <xacro:if value="${prefix.find('left_') != -1}">
       <xacro:property name="limit_offset_joint2" value="${-pi/2}" />
     </xacro:if>
-
 
     <joint name="${prefix}joint2" type="revolute">
       <xacro:openarm-kinematics name="joint2" config="${kinematics}" offset="${kinematics_offset}" reflect="${reflect}"/>
@@ -126,5 +127,6 @@
       <parent link="${prefix}link7" />
       <child link="${prefix}link8" />
     </joint>
+
   </xacro:macro>
 </robot>

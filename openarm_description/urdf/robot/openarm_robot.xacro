@@ -110,7 +110,6 @@
         kinematics_link="${kinematics_link}"
         kinematics_offset="${kinematics_offset}" />
 
-
         <xacro:openarm_arm_ros2_control
         arm_type="${arm_type}"
         arm_prefix="right_"
@@ -122,7 +121,6 @@
         hand="${hand}"
         bimanual="true"
         />
-
 
         <xacro:if value="${hand and ee_type == 'openarm_hand'}">
             <xacro:openarm_hand
@@ -188,7 +186,9 @@
         <xacro:if value="${hand and ee_type == 'openarm_hand'}">
 
         <xacro:property name="special_connection" value="$(arg special_connection)" />
-        <xacro:property name="connection" value="${special_connection if special_connection != '' else arm_type + '_link8'}" />
+        <!-- <xacro:property name="connection" value="${special_connection if special_connection != '' else arm_type + '_link8'}" /> -->
+        <xacro:property name="connection" value="${special_connection if special_connection != '' else 'openarm' + '_link8'}" />
+
         <xacro:openarm_hand
             connected_to="${arm_prefix_modified}${connection}"
             arm_type="${arm_type}"

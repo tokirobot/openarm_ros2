@@ -52,10 +52,19 @@ joint6:
     pitch: 0
     yaw: 0
 
+# joint7:
+#   kinematic:
+#     x: -0.0375
+#     y: 0.0205
+#     z: 0.0
+#     roll: 0
+#     pitch: 0
+#     yaw: 0
+
 joint7:
   kinematic:
     x: -0.0375
-    y: 0.0205
+    y: 0.0
     z: 0.0
     roll: 0
     pitch: 0
