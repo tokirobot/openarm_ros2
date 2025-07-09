@@ -224,120 +224,6 @@
     <parent link="openarm_link7"/>
     <child link="openarm_link8"/>
   </joint>
-  <ros2_control name="openarmHardwareInterface" type="system">
-    <hardware>
-      <param name="arm_type">v10</param>
-      <param name="prefix"></param>
-      <plugin>openarm_hardware/openarmHardwareInterface</plugin>
-      <param name="can">can0</param>
-      <param name="arm_prefix"></param>
-    </hardware>
-    <joint name="v10_joint1">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <!-- State Interfaces -->
-      <state_interface name="position">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="velocity">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="effort">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-    </joint>
-    <joint name="v10_joint2">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <!-- State Interfaces -->
-      <state_interface name="position">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="velocity">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="effort">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-    </joint>
-    <joint name="v10_joint3">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <!-- State Interfaces -->
-      <state_interface name="position">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="velocity">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="effort">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-    </joint>
-    <joint name="v10_joint4">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <!-- State Interfaces -->
-      <state_interface name="position">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="velocity">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="effort">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-    </joint>
-    <joint name="v10_joint5">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <!-- State Interfaces -->
-      <state_interface name="position">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="velocity">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="effort">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-    </joint>
-    <joint name="v10_joint6">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <!-- State Interfaces -->
-      <state_interface name="position">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="velocity">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="effort">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-    </joint>
-    <joint name="v10_joint7">
-      <command_interface name="position"/>
-      <command_interface name="velocity"/>
-      <command_interface name="effort"/>
-      <!-- State Interfaces -->
-      <state_interface name="position">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="velocity">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-      <state_interface name="effort">
-        <param name="initial_value">0.0</param>
-      </state_interface>
-    </joint>
-  </ros2_control>
   <!-- <joint name="${ee_prefix}hand_joint" type="fixed"> -->
   <joint name="openarm_hand_joint" type="fixed">
     <parent link="openarm_link8"/>
@@ -349,8 +235,8 @@
   <!-- Define the hand_tcp frame -->
   <link name="openarm_hand_tcp"/>
   <joint name="openarm_hand_tcp_joint" type="fixed">
-    <!-- <origin xyz="0 0.1 0.06" rpy="${tcp_rpy}" /> -->
-    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <origin rpy="0 0 0" xyz="0 0.1 0.06"/>
+    <!-- <origin xyz="${tcp_xyz}" rpy="${tcp_rpy}" /> -->
     <parent link="openarm_hand"/>
     <child link="openarm_hand_tcp"/>
   </joint>

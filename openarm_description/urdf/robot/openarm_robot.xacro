@@ -127,7 +127,7 @@
 
         <xacro:if value="${hand and ee_type == 'openarm_hand'}">
             <xacro:openarm_hand
-                connected_to="left_openarm_link8"
+                connected_to="openarm_left_link8"
                 arm_type="${arm_type}"
                 arm_prefix="left_"
                 ee_type="${ee_type}"
@@ -141,7 +141,7 @@
                 description_pkg="$(arg description_pkg)"
             />
             <xacro:openarm_hand
-                connected_to="right_openarm_link8"
+                connected_to="openarm_right_link8"
                 arm_type="${arm_type}"
                 arm_prefix="right_"
                 ee_type="${ee_type}"

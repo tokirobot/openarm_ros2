@@ -7,7 +7,7 @@
 
     <xacro:unless value="${arm_type == ''}">
       <!-- <xacro:property name="ee_prefix" value="${arm_prefix}${arm_type}_" /> -->
-      <xacro:property name="ee_prefix" value="${arm_prefix}openarm_" />
+      <xacro:property name="ee_prefix" value="openarm_${arm_prefix}" />
     </xacro:unless>
 
     <xacro:unless value="${connected_to == ''}">

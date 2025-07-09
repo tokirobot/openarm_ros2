@@ -39,7 +39,7 @@
   <!-- ========================================================== -->
   <xacro:macro name="link_with_sc" params="name no_prefix:='false' rpy:='0 0 0' gazebo:=false kinematics_link:=''  reflect:=1">
     <!-- <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" /> -->
-    <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + 'openarm' + '_'}" />
+    <xacro:property name="prefix" value="${'' if no_prefix else 'openarm' + '_' +  arm_prefix}" />
     <link name="${prefix}${name}">
       <visual name="${prefix}${name}_visual">
         <xacro:openarm-kinematics-link config="${kinematics_link}" name="${name}" />
