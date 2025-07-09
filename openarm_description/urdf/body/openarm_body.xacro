@@ -12,7 +12,6 @@
               connected_to:='world'
               xyz:='0 0 0'
               rpy:='0 0 0'
-              gazebo:='false'
               inertials
               kinematics
               kinematics_link">
@@ -31,7 +30,6 @@
     <xacro:body_link_with_sc
     name="body_link0"
     no_prefix="${no_prefix}"
-    gazebo="${gazebo}"
     kinematics_link="${kinematics_link}" />
     </xacro:macro>
 

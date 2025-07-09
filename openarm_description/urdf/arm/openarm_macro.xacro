@@ -37,7 +37,7 @@
   <!-- rpy:   Rotation of the *_sc link relative to parent [rad]  -->
   <!-- self_collision_geometries:  self <collision> models        -->
   <!-- ========================================================== -->
-  <xacro:macro name="link_with_sc" params="name no_prefix:='false' rpy:='0 0 0' gazebo:=false kinematics_link:=''  reflect:=1">
+  <xacro:macro name="link_with_sc" params="name no_prefix:='false' rpy:='0 0 0' kinematics_link:=''  reflect:=1">
     <!-- <xacro:property name="prefix" value="${'' if no_prefix else arm_prefix + arm_type + '_'}" /> -->
     <xacro:property name="prefix" value="${'' if no_prefix else 'openarm' + '_' +  arm_prefix}" />
     <link name="${prefix}${name}">
@@ -64,12 +64,11 @@
   <!-- joint - Name of the openarm joint to simulate                  -->
   <!-- transmission - type of the transmission of the joint       -->
   <!-- ========================================================== -->
-  <xacro:macro name="gazebo-joint" params="joint transmission:=hardware_interface/EffortJointInterface">
+
+  <!-- <xacro:macro name="gazebo-joint" params="joint transmission:=hardware_interface/EffortJointInterface">
     <gazebo reference="${joint}">
-      <!-- Needed for ODE to output external wrenches on joints -->
       <provideFeedback>true</provideFeedback>
     </gazebo>
-
     <transmission name="${joint}_transmission">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${joint}">
@@ -79,18 +78,15 @@
         <hardwareInterface>${transmission}</hardwareInterface>
       </actuator>
     </transmission>
-  </xacro:macro>
+  </xacro:macro> -->
 
-  <xacro:macro name="gazebo-friction" params="link mu">
+  <!-- <xacro:macro name="gazebo-friction" params="link mu">
     <gazebo reference="${link}">
       <collision>
         <max_contacts>10</max_contacts>
         <surface>
           <contact>
             <ode>
-              <!-- These two parameter need application specific tuning. -->
-              <!-- Usually you want no "snap out" velocity and a generous -->
-              <!-- penetration depth to keep the grasping stable -->
               <max_vel>0</max_vel>
               <min_depth>0.001</min_depth>
             </ode>
@@ -105,7 +101,7 @@
         </surface>
       </collision>
     </gazebo>
-  </xacro:macro>
+  </xacro:macro> -->
 
   <!-- ========================================================== -->
   <!-- Adds the required tags to provide a `openarmStateInterface` -->

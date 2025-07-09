@@ -17,12 +17,10 @@
             rpy:='0 0 0'
             hand:='false'
             ee_type:=''
-            gazebo:='false'
             ros2_control:=false
             can:=''
             use_fake_hardware:=false
             fake_sensor_commands:=false
-            gazebo_effort:=false
             no_prefix:='false'
             arm_prefix:=''
             body_prefix:=''
@@ -45,7 +43,7 @@
     <xacro:if value="${ee_type != 'none'}">
         <xacro:include filename="$(find openarm_description)/urdf/ee/${ee_type}_arguments.xacro" />
       </xacro:if>
-      
+
     <xacro:property name="arm_prefix_modified" value="${'' if arm_prefix == '' else arm_prefix + '_'}" />
     <xacro:property name="body_prefix_modified" value="${'' if body_prefix == '' else body_prefix + '_'}" />
 
@@ -59,7 +57,6 @@
         connected_to="${body_connected_to}"
         xyz="${xyz}"
         rpy="${rpy}"
-        gazebo="${gazebo}"
         inertials="${body_inertials}"
         kinematics="${body_kinematics}"
         kinematics_link="${body_kinematics_link}" />
@@ -73,7 +70,6 @@
         connected_to="${body_type}_body_link0"
         xyz="${left_arm_base_xyz}"
         rpy="${left_arm_base_rpy}"
-        gazebo="${gazebo}"
         joint_limits="${joint_limits}"
         inertials="${inertials}"
         kinematics="${kinematics}"
@@ -87,8 +83,6 @@
         can="can1"
         use_fake_hardware="${use_fake_hardware}"
         fake_sensor_commands="${fake_sensor_commands}"
-        gazebo="${gazebo}"
-        gazebo_effort="${gazebo_effort}"
         hand="${hand}"
         bimanual="true"
         />
@@ -103,7 +97,6 @@
         connected_to="${body_type}_body_link0"
         xyz="${right_arm_base_xyz}"
         rpy="${right_arm_base_rpy}"
-        gazebo="${gazebo}"
         joint_limits="${joint_limits}"
         inertials="${inertials}"
         kinematics="${kinematics}"
@@ -117,8 +110,6 @@
             can="can0"
             use_fake_hardware="${use_fake_hardware}"
             fake_sensor_commands="${fake_sensor_commands}"
-            gazebo="${gazebo}"
-            gazebo_effort="${gazebo_effort}"
             hand="${hand}"
             bimanual="true"/>
         </xacro:if>
@@ -135,7 +126,6 @@
                 xyz_ee="$(arg xyz_ee)"
                 tcp_xyz="$(arg tcp_xyz)"
                 tcp_rpy="$(arg tcp_rpy)"
-                gazebo="${gazebo}"
                 description_pkg="$(arg description_pkg)"
             />
             <xacro:openarm_hand
@@ -149,7 +139,6 @@
                 xyz_ee="$(arg xyz_ee)"
                 tcp_xyz="$(arg tcp_xyz)"
                 tcp_rpy="$(arg tcp_rpy)"
-                gazebo="${gazebo}"
                 description_pkg="$(arg description_pkg)"
             />
           </xacro:if>
@@ -163,7 +152,6 @@
         no_prefix="${no_prefix}"
         xyz="${xyz}"
         rpy="${rpy}"
-        gazebo="${gazebo}"
         joint_limits="${joint_limits}"
         kinematics="${kinematics}"
         kinematics_link="${kinematics_link}"
@@ -179,8 +167,6 @@
             can="${can}"
             use_fake_hardware="${use_fake_hardware}"
             fake_sensor_commands="${fake_sensor_commands}"
-            gazebo="${gazebo}"
-            gazebo_effort="${gazebo_effort}"
             hand="${hand}"
             bimanual="false"/>
         </xacro:if>
@@ -203,7 +189,6 @@
             xyz_ee="$(arg xyz_ee)"
             tcp_xyz="$(arg tcp_xyz)"
             tcp_rpy="$(arg tcp_rpy)"
-            gazebo="${gazebo}"
             description_pkg="$(arg description_pkg)"/>
         </xacro:if>
         </xacro:if>

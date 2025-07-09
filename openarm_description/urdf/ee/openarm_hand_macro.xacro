@@ -18,7 +18,7 @@
       </xacro:if>
   </xacro:macro>
 
-  <xacro:macro name="ee_link_with_sc" params="name prefix rpy:='0 0 0' gazebo:=false ee_kinematics_link">
+  <xacro:macro name="ee_link_with_sc" params="name prefix rpy:='0 0 0' ee_kinematics_link">
     <!-- sub-link defining detailed meshes for collision with environment -->
     <link name="${prefix}${name}">
       <visual name="${prefix}${name}_visual">
