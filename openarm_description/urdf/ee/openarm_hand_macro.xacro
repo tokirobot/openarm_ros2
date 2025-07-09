@@ -28,6 +28,7 @@
         </geometry>
       </visual>
       <collision name="${prefix}${name}_collision">
+        <xacro:openarm-ee-kinematics-link config="${ee_kinematics_link}" name="${name}" />
         <geometry>
           <mesh filename="package://openarm_description/meshes/ee/${ee_type}/collision/${name}.stl" scale="0.001 0.001 0.001" />
         </geometry>

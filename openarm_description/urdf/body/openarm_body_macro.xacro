@@ -54,7 +54,6 @@
     </link>
   </xacro:macro>
 
-
   <xacro:macro name="openarm-body-kinematics" params="config name">
     <xacro:property name="kinematics" value="${config[name]['kinematic']}" lazy_eval="false" />
     <origin rpy="${kinematics.roll} ${kinematics.pitch} ${kinematics.yaw}"

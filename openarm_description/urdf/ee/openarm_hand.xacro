@@ -26,8 +26,8 @@
     <link name="${ee_prefix}hand_tcp" />
 
     <joint name="${ee_prefix}hand_tcp_joint" type="fixed">
-      <origin xyz="0 0.1 0.06" rpy="${tcp_rpy}" />
-      <!-- <origin xyz="${tcp_xyz}" rpy="${tcp_rpy}" /> -->
+      <!-- <origin xyz="0 0.1 0.06" rpy="${tcp_rpy}" /> -->
+      <origin xyz="${tcp_xyz}" rpy="${tcp_rpy}" />
       <parent link="${ee_prefix}hand" />
       <child link="${ee_prefix}hand_tcp" />
     </joint>

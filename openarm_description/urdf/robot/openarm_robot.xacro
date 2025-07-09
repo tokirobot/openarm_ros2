@@ -15,12 +15,8 @@
             parent:='world'
             xyz:='0 0 0'
             rpy:='0 0 0'
-            xyz_ee='0 0 0'
-            xyz_rpy='0 0 0'
-            tcp_xyz='0 0 0'
-            tcp_rpy='0 0 0'
-            hand:='true'
-            ee_type:=none
+            hand:='false'
+            ee_type:=''
             gazebo:='false'
             ros2_control:=false
             can:=''
@@ -32,7 +28,7 @@
             body_prefix:=''
             arm_connected_to='base'
             body_connected_to='world'
-            bimanual:=true
+            bimanual:=false
             right_arm_base_xyz='0 0 0'
             left_arm_base_xyz='0 0 0'
             right_arm_base_rpy='0 0 0'
@@ -45,9 +41,11 @@
     <xacro:include filename="$(find openarm_description)/urdf/body/openarm_body.xacro" />  
     <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand.xacro" />
     <xacro:include filename="$(find openarm_description)/urdf/ee/openarm_hand_macro.xacro" />
-    <xacro:include filename="$(find openarm_description)/urdf/ee/${ee_type}_arguments.xacro" />
     <xacro:include filename="$(find openarm_description)/urdf/ros2_control/openarm.ros2_control.xacro" />
-
+    <xacro:if value="${ee_type != 'none'}">
+        <xacro:include filename="$(find openarm_description)/urdf/ee/${ee_type}_arguments.xacro" />
+      </xacro:if>
+      
     <xacro:property name="arm_prefix_modified" value="${'' if arm_prefix == '' else arm_prefix + '_'}" />
     <xacro:property name="body_prefix_modified" value="${'' if body_prefix == '' else body_prefix + '_'}" />
 
@@ -125,7 +123,7 @@
             bimanual="true"/>
         </xacro:if>
 
-        <xacro:if value="${hand and ee_type == 'openarm_hand'}">
+        <xacro:if value="$(eval hand and ee_type == 'openarm_hand')">
             <xacro:openarm_hand
                 connected_to="openarm_left_link8"
                 arm_type="${arm_type}"
@@ -193,6 +191,7 @@
         <!-- <xacro:property name="connection" value="${special_connection if special_connection != '' else arm_type + '_link8'}" /> -->
         <xacro:property name="connection" value="${special_connection if special_connection != '' else 'openarm' + '_link8'}" />
 
+        <xacro:if value="$(eval hand and ee_type == 'openarm_hand')">
         <xacro:openarm_hand
             connected_to="${arm_prefix_modified}${connection}"
             arm_type="${arm_type}"
@@ -207,7 +206,7 @@
             gazebo="${gazebo}"
             description_pkg="$(arg description_pkg)"/>
         </xacro:if>
-
+        </xacro:if>
         <!-- <xacro:if value="${hand and ee_type != 'none' and ee_type != 'openarm_hand'}">
         <xacro:property name="special_connection" value="$(arg special_connection)" />
         <xacro:property name="connection" value="${special_connection if special_connection == '' else arm_type + '_link8'}" />
