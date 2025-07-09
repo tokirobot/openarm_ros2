@@ -8,6 +8,7 @@
     argument arm_type is no longer supported and will be removed in the future.
     This argument is ignored.
   -->
+    
   <xacro:arg name="arm_type" default="v10" />
 
   <xacro:arg name="body_type" default="v10" />
@@ -44,10 +45,10 @@
   <xacro:arg name="bimanual" default="false" />
 
   <!-- used in bimanual -->
-  <xacro:arg name="right_arm_base_xyz" default="0.0 -0.07 0.83" />
+  <xacro:arg name="right_arm_base_xyz" default="0.0 -0.031 0.698" />
   <xacro:arg name="right_arm_base_rpy" default="1.5708 0 0" />
 
-  <xacro:arg name="left_arm_base_xyz" default="0.0 0.07 0.83" />
+  <xacro:arg name="left_arm_base_xyz" default="0.0 0.031 0.698" />
   <xacro:arg name="left_arm_base_rpy" default="-1.5708 0 0" />
 
   <xacro:openarm_robot

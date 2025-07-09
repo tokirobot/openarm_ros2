@@ -174,6 +174,7 @@
         />
 
         <xacro:if value="${ros2_control}">
+
         <xacro:openarm_arm_ros2_control
             arm_type="${arm_type}"
             arm_prefix="${arm_prefix_modified}"
@@ -278,8 +279,6 @@
             <xacro:gazebo-friction link="${arm_type}_rightfinger" mu="1.13" />
         </xacro:if>
         </xacro:if> -->
-
-
 
   </xacro:macro>
 </robot>

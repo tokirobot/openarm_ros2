@@ -19,7 +19,7 @@
   <name>openarm_description</name>
   <version>0.3.0</version>
   <description>URDF with optional configuration parameters for OpenArm</description>
-  <maintainer email="t95zhou@uwaterloo.ca">Thomason Zhou</maintainer>
+  <maintainer email="yusuke_toki@reazon.jp">Yusuke Toki</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
