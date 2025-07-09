@@ -12,7 +12,7 @@
 
     <xacro:unless value="${connected_to == ''}">
       <!-- <joint name="${ee_prefix}hand_joint" type="fixed"> -->
-      <joint name="openarm_hand_joint" type="fixed">
+      <joint name="${arm_prefix}openarm_hand_joint" type="fixed">
         <parent link="${connected_to}" />
         <child link="${ee_prefix}hand" />
         <origin xyz="${xyz_ee}" rpy="${rpy_ee}" />
