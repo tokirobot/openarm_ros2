@@ -206,7 +206,6 @@
             xyz_ee="$(arg xyz_ee)"
             tcp_xyz="$(arg tcp_xyz)"
             tcp_rpy="$(arg tcp_rpy)"
-            gazebo="${gazebo}"
             description_pkg="$(arg description_pkg)"
         />
         </xacro:if> -->
