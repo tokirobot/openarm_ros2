@@ -57,7 +57,7 @@
         </geometry>
       </visual>
       <collision name="${ee_prefix}right_finger_collision">
-        <xacro:openarm-ee-kinematics-link config="${ee_kinematics_link}" name="left_finger" />
+        <xacro:openarm-ee-kinematics-link config="${ee_kinematics_link}" name="right_finger" />
         <geometry>
           <mesh filename="package://${description_pkg}/meshes/ee/${ee_type}/collision/finger.stl" scale="0.001 -0.001 0.001" />
         </geometry>
