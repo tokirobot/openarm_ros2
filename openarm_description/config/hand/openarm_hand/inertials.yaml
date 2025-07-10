@@ -1,12 +1,12 @@
 hand:
   origin:
-    xyz: -0.01 0 0.03
+    xyz: -0.0 -0.02 0.1
     rpy: 0 0 0
-  mass: 0.73
+  mass: 0.15
   inertia:
-    xx: 0.001
-    yy: 0.0025
-    zz: 0.0017
+    xx: 0.0001
+    yy: 0.00025
+    zz: 0.00017
     xy: 0
     xz: 0
     yz: 0

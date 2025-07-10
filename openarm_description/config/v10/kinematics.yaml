@@ -70,11 +70,20 @@ joint7:
     pitch: 0
     yaw: 0
 
+# joint8:
+#   kinematic:
+#     x: 1e-06
+#     y: -0.098
+#     z: 0.114501
+#     roll: 0
+#     pitch: 0
+#     yaw: 0
+
 joint8:
   kinematic:
     x: 1e-06
-    y: -0.098
-    z: 0.114501
+    y: 0.0205
+    z: 0.0
     roll: 0
     pitch: 0
     yaw: 0
