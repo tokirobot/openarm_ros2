@@ -130,7 +130,8 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type):
     arm_type_str = context.perform_substitution(arm_type)
 
     moveit_config = (
-        MoveItConfigsBuilder("openarm", package_name="openarm_bimanual_moveit_config")
+        MoveItConfigsBuilder(
+            "openarm", package_name="openarm_bimanual_moveit_config")
         .robot_description_semantic(
             file_path=f"config/{arm_type_str}/openarm_bimanual.srdf"
         )
@@ -179,7 +180,8 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "robot_controller",
             default_value="joint_trajectory_controller",
-            choices=["forward_position_controller", "joint_trajectory_controller"],
+            choices=["forward_position_controller",
+                     "joint_trajectory_controller"],
         ),
         DeclareLaunchArgument(
             "runtime_config_package", default_value="openarm_bringup"
@@ -244,7 +246,8 @@ def generate_launch_description():
     )
 
     delayed_jsb = TimerAction(period=2.0, actions=[jsb_spawner])
-    delayed_arm_ctrl = TimerAction(period=1.0, actions=[controller_spawner_func])
+    delayed_arm_ctrl = TimerAction(
+        period=1.0, actions=[controller_spawner_func])
     delayed_gripper = TimerAction(period=1.0, actions=[gripper_spawner])
 
     return LaunchDescription(

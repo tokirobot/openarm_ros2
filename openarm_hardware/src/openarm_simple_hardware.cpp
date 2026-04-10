@@ -73,7 +73,8 @@ bool OpenArmHW::parse_config(const hardware_interface::HardwareInfo& info) {
   }
   // Parse ee_type (default: parallel_link for v10)
   it = info.hardware_parameters.find("ee_type");
-  ee_type_ = (it != info.hardware_parameters.end()) ? it->second : "parallel_link";
+  ee_type_ =
+      (it != info.hardware_parameters.end()) ? it->second : "parallel_link";
 
   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"),
               "Configuration: CAN=%s, arm_prefix=%s, hand=%s, can_fd=%s",
@@ -226,8 +227,7 @@ hardware_interface::CallbackReturn OpenArmHW::on_activate(
 
 hardware_interface::CallbackReturn OpenArmHW::on_deactivate(
     const rclcpp_lifecycle::State& /*previous_state*/) {
-  RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"),
-              "Deactivating OpenArm V10...");
+  RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Deactivating OpenArm V10...");
 
   // Disable all motors (like full_arm.cpp exit)
   openarm_->disable_all();
@@ -291,8 +291,7 @@ hardware_interface::return_type OpenArmHW::write(
 }
 
 void OpenArmHW::return_to_zero() {
-  RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"),
-              "Returning to zero position...");
+  RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Returning to zero position...");
 
   // Return arm to zero with MIT control
   std::vector<openarm::damiao_motor::MITParam> arm_params;

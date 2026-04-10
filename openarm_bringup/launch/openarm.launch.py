@@ -41,7 +41,8 @@ def generate_robot_description(context: LaunchContext, description_package, desc
     can_interface_str = context.perform_substitution(can_interface)
     arm_prefix_str = context.perform_substitution(arm_prefix)
 
-    description_file_str = f"{arm_type_str}.urdf.xacro"  # Override description file based on arm type
+    # Override description file based on arm type
+    description_file_str = f"{arm_type_str}.urdf.xacro"
 
     # Build xacro file path
     xacro_path = os.path.join(

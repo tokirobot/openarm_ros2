@@ -22,7 +22,8 @@ from launch.substitutions import LaunchConfiguration
 def move_group_spawner(context: LaunchContext, arm_type):
     arm_type_str = context.perform_substitution(arm_type)
     moveit_config = (
-        MoveItConfigsBuilder("openarm", package_name="openarm_bimanual_moveit_config")
+        MoveItConfigsBuilder(
+            "openarm", package_name="openarm_bimanual_moveit_config")
         .robot_description_semantic(file_path=f"config/{arm_type_str}/openarm_bimanual.srdf")
         .joint_limits(file_path=f"config/{arm_type_str}/joint_limits.yaml")
         .robot_description_kinematics(file_path=f"config/{arm_type_str}/kinematics.yaml")
@@ -34,5 +35,6 @@ def move_group_spawner(context: LaunchContext, arm_type):
 def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument("arm_type", default_value="v20"),
-        OpaqueFunction(function=move_group_spawner, args=[LaunchConfiguration("arm_type")])
+        OpaqueFunction(function=move_group_spawner, args=[
+                       LaunchConfiguration("arm_type")])
     ])
