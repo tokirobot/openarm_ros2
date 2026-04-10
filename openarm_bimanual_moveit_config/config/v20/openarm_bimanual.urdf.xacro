@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
 　Copyright 2025 Enactic, Inc.
 
@@ -13,13 +14,14 @@
 　See the License for the specific language governing permissions and
 　limitations under the License.
 -->
-
-<library path="openarm_hardware">
-  <class name="openarm_hardware/OpenArmHW"
-         type="openarm_hardware::OpenArmHW"
-         base_class_type="hardware_interface::SystemInterface">
-    <description>
-      ros2_control hardware interface for OpenArm .
-    </description>
-  </class>
-</library>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="openarm_bimanual">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+    <xacro:arg name="hardware_type" default="real" />
+    <xacro:include filename="$(find openarm_description)/urdf/robot/v20/v20.urdf.xacro" />
+    <link name="base_link"/>
+    <joint name="world_to_pedestal" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+</robot>

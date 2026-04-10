@@ -41,10 +41,12 @@ def generate_robot_description(context: LaunchContext, description_package, desc
     can_interface_str = context.perform_substitution(can_interface)
     arm_prefix_str = context.perform_substitution(arm_prefix)
 
+    description_file_str = f"{arm_type_str}.urdf.xacro"  # Override description file based on arm type
+
     # Build xacro file path
     xacro_path = os.path.join(
         get_package_share_directory(description_package_str),
-        "urdf", "robot", description_file_str
+        "urdf", "robot", arm_type_str, description_file_str
     )
 
     # Process xacro with required arguments
@@ -108,12 +110,12 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             "description_file",
-            default_value="v10.urdf.xacro",
+            default_value="v20.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         ),
         DeclareLaunchArgument(
             "arm_type",
-            default_value="v10",
+            default_value="v20",
             description="Type of arm (e.g., v10).",
         ),
         DeclareLaunchArgument(
@@ -145,7 +147,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             "controllers_file",
-            default_value="openarm_v10_controllers.yaml",
+            default_value="openarm_controllers.yaml",
             description="Controllers file(s) to use. Can be a single file or comma-separated list of files.",
         ),
     ]
@@ -163,7 +165,7 @@ def generate_launch_description():
     # Configuration file paths
     controllers_file = PathJoinSubstitution(
         [FindPackageShare(runtime_config_package), "config",
-         "v10_controllers", controllers_file]
+         "controllers", controllers_file]
     )
 
     # Robot nodes spawner (both state publisher and control)
