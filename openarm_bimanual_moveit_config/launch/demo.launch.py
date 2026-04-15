@@ -129,27 +129,51 @@ def controller_spawner(context: LaunchContext, robot_controller):
 def moveit_nodes_spawner(context: LaunchContext, arm_type):
     arm_type_str = context.perform_substitution(arm_type)
 
+    description_pkg_path = get_package_share_directory("openarm_description")
+    moveit_pkg_path = get_package_share_directory("openarm_bimanual_moveit_config")
+
+    xacro_path = os.path.join(
+        description_pkg_path, "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
+    )
+
     moveit_config = (
-        MoveItConfigsBuilder(
-            "openarm", package_name="openarm_bimanual_moveit_config")
-        .robot_description_semantic(
-            file_path=f"config/{arm_type_str}/openarm_bimanual.srdf"
+        MoveItConfigsBuilder("openarm", package_name="openarm_bimanual_moveit_config")
+        .robot_description(
+            file_path=xacro_path,
+            mappings={
+                "arm_type": arm_type_str,
+                "bimanual": "true",
+                "use_fake_hardware": "true",
+                "ros2_control": "true",
+            }
         )
-        .joint_limits(
-            file_path=f"config/{arm_type_str}/joint_limits.yaml"
-        )
-        .robot_description_kinematics(
-            file_path=f"config/{arm_type_str}/kinematics.yaml"
+        .robot_description_semantic(file_path=f"config/{arm_type_str}/openarm_bimanual.srdf")
+        .robot_description_kinematics(file_path=f"config/{arm_type_str}/kinematics.yaml")
+        .joint_limits(file_path=f"config/{arm_type_str}/joint_limits.yaml")
+        .trajectory_execution(file_path=f"config/{arm_type_str}/moveit_controllers.yaml")
+        .planning_pipelines(
+            pipelines=["ompl", "pilz_industrial_motion_planner"],
+            default_planning_pipeline="ompl"
         )
         .to_moveit_configs()
     )
 
     moveit_params = moveit_config.to_dict()
 
-    rviz_cfg = os.path.join(
-        get_package_share_directory("openarm_bimanual_moveit_config"),
-        "config", arm_type_str, "moveit.rviz"
+    pilz_cartesian_limits_path = os.path.join(
+        moveit_pkg_path, "config", arm_type_str, "pilz_cartesian_limits.yaml"
     )
+
+    if os.path.exists(pilz_cartesian_limits_path):
+        import yaml
+        with open(pilz_cartesian_limits_path, 'r') as f:
+            config_data = yaml.safe_load(f)
+            if "cartesian_limits" in config_data:
+                if "robot_description_planning" not in moveit_params:
+                    moveit_params["robot_description_planning"] = {}
+                moveit_params["robot_description_planning"].update(config_data)
+
+    rviz_cfg = os.path.join(moveit_pkg_path, "config", arm_type_str, "moveit.rviz")
 
     return [
         Node(
@@ -167,7 +191,6 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type):
             parameters=[moveit_params],
         ),
     ]
-
 
 def generate_launch_description():
     declared_arguments = [

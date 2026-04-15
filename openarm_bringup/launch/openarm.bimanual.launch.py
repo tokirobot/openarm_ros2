@@ -49,7 +49,7 @@ def generate_robot_description(context: LaunchContext, description_package, desc
 
     xacro_path = os.path.join(
         get_package_share_directory(description_package_str),
-        "urdf", "robot", arm_type_str, description_file_str
+        "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
     )
 
     # Process xacro with required arguments
@@ -78,6 +78,7 @@ def robot_nodes_spawner(context: LaunchContext, description_package, description
     )
 
     controllers_file_str = context.perform_substitution(controllers_file)
+
     robot_description_param = {"robot_description": robot_description}
 
     if namespace:
