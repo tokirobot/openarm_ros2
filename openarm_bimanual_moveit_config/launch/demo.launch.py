@@ -8,6 +8,7 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from moveit_configs_utils import MoveItConfigsBuilder
 
+
 def generate_robot_description(
     context: LaunchContext,
     description_package,
@@ -38,6 +39,7 @@ def generate_robot_description(
             "right_can_interface": right_can_interface_str,
         },
     ).toprettyxml(indent="  ")
+
 
 def robot_nodes_spawner(
     context: LaunchContext,
@@ -78,6 +80,7 @@ def robot_nodes_spawner(
 
     return [robot_state_pub_node, control_node]
 
+
 def controller_spawner(context: LaunchContext, robot_controller):
     robot_controller_str = context.perform_substitution(robot_controller)
 
@@ -98,19 +101,22 @@ def controller_spawner(context: LaunchContext, robot_controller):
         )
     ]
 
+
 def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
     arm_type_str = context.perform_substitution(arm_type)
     use_fake_hardware_str = context.perform_substitution(use_fake_hardware)
 
     description_pkg_path = get_package_share_directory("openarm_description")
-    moveit_pkg_path = get_package_share_directory("openarm_bimanual_moveit_config")
+    moveit_pkg_path = get_package_share_directory(
+        "openarm_bimanual_moveit_config")
 
     xacro_path = os.path.join(
         description_pkg_path, "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
     )
 
     moveit_config = (
-        MoveItConfigsBuilder("openarm", package_name="openarm_bimanual_moveit_config")
+        MoveItConfigsBuilder(
+            "openarm", package_name="openarm_bimanual_moveit_config")
         .robot_description(
             file_path=xacro_path,
             mappings={
@@ -125,7 +131,8 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
         .joint_limits(file_path=f"config/{arm_type_str}/joint_limits.yaml")
         .trajectory_execution(file_path=f"config/{arm_type_str}/moveit_controllers.yaml")
         .planning_pipelines(
-            pipelines=["ompl", "pilz_industrial_motion_planner"],
+            # pipelines=["ompl", "pilz_industrial_motion_planner"],
+            pipelines=["ompl"],
             default_planning_pipeline="ompl"
         )
         .to_moveit_configs()
@@ -146,7 +153,8 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
                     moveit_params["robot_description_planning"] = {}
                 moveit_params["robot_description_planning"].update(config_data)
 
-    rviz_cfg = os.path.join(moveit_pkg_path, "config", arm_type_str, "moveit.rviz")
+    rviz_cfg = os.path.join(moveit_pkg_path, "config",
+                            arm_type_str, "moveit.rviz")
 
     return [
         Node(
@@ -165,21 +173,26 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
         ),
     ]
 
+
 def generate_launch_description():
     declared_arguments = [
-        DeclareLaunchArgument("description_package", default_value="openarm_description"),
+        DeclareLaunchArgument("description_package",
+                              default_value="openarm_description"),
         DeclareLaunchArgument("arm_type", default_value="v20"),
         DeclareLaunchArgument("use_fake_hardware", default_value="false"),
         DeclareLaunchArgument(
             "robot_controller",
             default_value="joint_trajectory_controller",
-            choices=["forward_position_controller", "joint_trajectory_controller"],
+            choices=["forward_position_controller",
+                     "joint_trajectory_controller"],
         ),
-        DeclareLaunchArgument("runtime_config_package", default_value="openarm_bringup"),
+        DeclareLaunchArgument("runtime_config_package",
+                              default_value="openarm_bringup"),
         DeclareLaunchArgument("arm_prefix", default_value=""),
         DeclareLaunchArgument("right_can_interface", default_value="can0"),
         DeclareLaunchArgument("left_can_interface", default_value="can1"),
-        DeclareLaunchArgument("controllers_file", default_value="openarm_bimanual_controllers.yaml"),
+        DeclareLaunchArgument(
+            "controllers_file", default_value="openarm_bimanual_controllers.yaml"),
     ]
 
     description_package = LaunchConfiguration("description_package")
@@ -193,7 +206,8 @@ def generate_launch_description():
     arm_prefix = LaunchConfiguration("arm_prefix")
 
     controllers_file = PathJoinSubstitution(
-        [FindPackageShare(runtime_config_package), "config", "controllers", controllers_file]
+        [FindPackageShare(runtime_config_package), "config",
+         "controllers", controllers_file]
     )
 
     robot_nodes_spawner_func = OpaqueFunction(
@@ -217,7 +231,8 @@ def generate_launch_description():
     jsb_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+        arguments=["joint_state_broadcaster",
+                   "--controller-manager", "/controller_manager"],
     )
 
     controller_spawner_func = OpaqueFunction(
@@ -227,7 +242,8 @@ def generate_launch_description():
     gripper_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["left_gripper_controller", "right_gripper_controller", "-c", "/controller_manager"],
+        arguments=["left_gripper_controller",
+                   "right_gripper_controller", "-c", "/controller_manager"],
     )
 
     return LaunchDescription(
