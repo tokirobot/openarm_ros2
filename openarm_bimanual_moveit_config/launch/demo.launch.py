@@ -1,34 +1,12 @@
-# Copyright 2025 Enactic, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import os
 import xacro
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription, LaunchContext
-from launch.actions import (
-    DeclareLaunchArgument,
-    TimerAction,
-    OpaqueFunction,
-)
-from launch.substitutions import (
-    LaunchConfiguration,
-    PathJoinSubstitution,
-)
+from launch.actions import DeclareLaunchArgument, TimerAction, OpaqueFunction
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from moveit_configs_utils import MoveItConfigsBuilder
-
 
 def generate_robot_description(
     context: LaunchContext,
@@ -38,7 +16,6 @@ def generate_robot_description(
     right_can_interface,
     left_can_interface,
 ):
-    """Render Xacro and return XML string."""
     description_package_str = context.perform_substitution(description_package)
     arm_type_str = context.perform_substitution(arm_type)
     use_fake_hardware_str = context.perform_substitution(use_fake_hardware)
@@ -50,7 +27,7 @@ def generate_robot_description(
         "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro",
     )
 
-    robot_description = xacro.process_file(
+    return xacro.process_file(
         xacro_path,
         mappings={
             "arm_type": arm_type_str,
@@ -61,9 +38,6 @@ def generate_robot_description(
             "right_can_interface": right_can_interface_str,
         },
     ).toprettyxml(indent="  ")
-
-    return robot_description
-
 
 def robot_nodes_spawner(
     context: LaunchContext,
@@ -104,7 +78,6 @@ def robot_nodes_spawner(
 
     return [robot_state_pub_node, control_node]
 
-
 def controller_spawner(context: LaunchContext, robot_controller):
     robot_controller_str = context.perform_substitution(robot_controller)
 
@@ -125,9 +98,9 @@ def controller_spawner(context: LaunchContext, robot_controller):
         )
     ]
 
-
-def moveit_nodes_spawner(context: LaunchContext, arm_type):
+def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
     arm_type_str = context.perform_substitution(arm_type)
+    use_fake_hardware_str = context.perform_substitution(use_fake_hardware)
 
     description_pkg_path = get_package_share_directory("openarm_description")
     moveit_pkg_path = get_package_share_directory("openarm_bimanual_moveit_config")
@@ -143,7 +116,7 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type):
             mappings={
                 "arm_type": arm_type_str,
                 "bimanual": "true",
-                "use_fake_hardware": "true",
+                "use_fake_hardware": use_fake_hardware_str,
                 "ros2_control": "true",
             }
         )
@@ -194,28 +167,19 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type):
 
 def generate_launch_description():
     declared_arguments = [
-        DeclareLaunchArgument(
-            "description_package",
-            default_value="openarm_description",
-        ),
+        DeclareLaunchArgument("description_package", default_value="openarm_description"),
         DeclareLaunchArgument("arm_type", default_value="v20"),
         DeclareLaunchArgument("use_fake_hardware", default_value="false"),
         DeclareLaunchArgument(
             "robot_controller",
             default_value="joint_trajectory_controller",
-            choices=["forward_position_controller",
-                     "joint_trajectory_controller"],
+            choices=["forward_position_controller", "joint_trajectory_controller"],
         ),
-        DeclareLaunchArgument(
-            "runtime_config_package", default_value="openarm_bringup"
-        ),
+        DeclareLaunchArgument("runtime_config_package", default_value="openarm_bringup"),
         DeclareLaunchArgument("arm_prefix", default_value=""),
         DeclareLaunchArgument("right_can_interface", default_value="can0"),
         DeclareLaunchArgument("left_can_interface", default_value="can1"),
-        DeclareLaunchArgument(
-            "controllers_file",
-            default_value="openarm_bimanual_controllers.yaml",
-        ),
+        DeclareLaunchArgument("controllers_file", default_value="openarm_bimanual_controllers.yaml"),
     ]
 
     description_package = LaunchConfiguration("description_package")
@@ -229,8 +193,7 @@ def generate_launch_description():
     arm_prefix = LaunchConfiguration("arm_prefix")
 
     controllers_file = PathJoinSubstitution(
-        [FindPackageShare(runtime_config_package), "config",
-         "controllers", controllers_file]
+        [FindPackageShare(runtime_config_package), "config", "controllers", controllers_file]
     )
 
     robot_nodes_spawner_func = OpaqueFunction(
@@ -248,38 +211,32 @@ def generate_launch_description():
 
     moveit_nodes_func = OpaqueFunction(
         function=moveit_nodes_spawner,
-        args=[arm_type]
+        args=[arm_type, use_fake_hardware]
     )
 
     jsb_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster",
-                   "--controller-manager", "/controller_manager"],
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
     controller_spawner_func = OpaqueFunction(
-        function=controller_spawner, args=[robot_controller])
+        function=controller_spawner, args=[robot_controller]
+    )
 
     gripper_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["left_gripper_controller",
-                   "right_gripper_controller", "-c", "/controller_manager"],
+        arguments=["left_gripper_controller", "right_gripper_controller", "-c", "/controller_manager"],
     )
-
-    delayed_jsb = TimerAction(period=2.0, actions=[jsb_spawner])
-    delayed_arm_ctrl = TimerAction(
-        period=1.0, actions=[controller_spawner_func])
-    delayed_gripper = TimerAction(period=1.0, actions=[gripper_spawner])
 
     return LaunchDescription(
         declared_arguments
         + [
             robot_nodes_spawner_func,
             moveit_nodes_func,
-            delayed_jsb,
-            delayed_arm_ctrl,
-            delayed_gripper,
+            TimerAction(period=2.0, actions=[jsb_spawner]),
+            TimerAction(period=1.0, actions=[controller_spawner_func]),
+            TimerAction(period=1.0, actions=[gripper_spawner]),
         ]
     )
