@@ -23,11 +23,14 @@ def generate_robot_description(
     right_can_interface_str = context.perform_substitution(right_can_interface)
     left_can_interface_str = context.perform_substitution(left_can_interface)
 
+    # xacro_path = os.path.join(
+    #     get_package_share_directory(description_package_str),
+    #     "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro",
+    # )
     xacro_path = os.path.join(
         get_package_share_directory(description_package_str),
-        "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro",
+        "assets", "robot", "openarm_v2.0", "urdf", "openarm_v20.urdf.xacro"
     )
-
     return xacro.process_file(
         xacro_path,
         mappings={
@@ -110,8 +113,12 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
     moveit_pkg_path = get_package_share_directory(
         "openarm_bimanual_moveit_config")
 
+    # xacro_path = os.path.join(
+    #     description_pkg_path, "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
+    # )
+
     xacro_path = os.path.join(
-        description_pkg_path, "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
+        description_pkg_path, "assets", "robot", "openarm_v2.0", "urdf", "openarm_v20.urdf.xacro"
     )
 
     moveit_config = (

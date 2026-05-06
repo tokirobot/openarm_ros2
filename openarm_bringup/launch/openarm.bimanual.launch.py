@@ -49,9 +49,14 @@ def generate_robot_description(context: LaunchContext, description_package, desc
 
     xacro_path = os.path.join(
         get_package_share_directory(description_package_str),
-        "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
+        "assets", "robot", "openarm_v2.0", "urdf", "openarm_v20.urdf.xacro"
     )
 
+    if arm_type_str in ["v10", "v1.0"]:
+        xacro_path = os.path.join(
+            get_package_share_directory(description_package_str),
+            "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
+        )
     # Process xacro with required arguments
     robot_description = xacro.process_file(
         xacro_path,
@@ -155,7 +160,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             "use_fake_hardware",
-            default_value="false",
+            default_value="true",
             description="Use fake hardware instead of real hardware.",
         ),
         DeclareLaunchArgument(
