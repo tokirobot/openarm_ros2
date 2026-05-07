@@ -186,7 +186,7 @@ def generate_launch_description():
         DeclareLaunchArgument("description_package",
                               default_value="openarm_description"),
         DeclareLaunchArgument("arm_type", default_value="v20"),
-        DeclareLaunchArgument("use_fake_hardware", default_value="false"),
+        DeclareLaunchArgument("use_fake_hardware", default_value="true"),
         DeclareLaunchArgument(
             "robot_controller",
             default_value="joint_trajectory_controller",
