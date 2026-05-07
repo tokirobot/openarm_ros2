@@ -152,4 +152,5 @@
     <disable_collisions link1="openarm_right_link7" link2="openarm_right_left_finger" reason="Adjacent"/>
     <disable_collisions link1="openarm_right_link7" link2="openarm_right_right_finger" reason="Adjacent"/>
     <disable_collisions link1="openarm_right_left_finger" link2="openarm_right_right_finger" reason="Default"/>
+
 </robot>
