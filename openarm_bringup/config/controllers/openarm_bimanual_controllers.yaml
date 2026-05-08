@@ -92,6 +92,7 @@ left_joint_trajectory_controller:
     state_interfaces:
       - position
 
+    # to achieve high real-time performance, interpolation is disabled and the controller is expected to receive high-frequency commands --- IGNORE ---
     interpolation_method: "none"
     interpolate_from_desired_state: true
 

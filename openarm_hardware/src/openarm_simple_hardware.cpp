@@ -230,9 +230,11 @@ hardware_interface::CallbackReturn OpenArmHW::on_deactivate(
   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Deactivating OpenArm V10...");
 
   // Disable all motors (like full_arm.cpp exit)
-  openarm_->disable_all();
-  std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  openarm_->recv_all();
+  for (int i = 0; i < 3; ++i) {
+    openarm_->disable_all();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    openarm_->recv_all();
+  }
 
   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "OpenArm V10 deactivated");
   return CallbackReturn::SUCCESS;
