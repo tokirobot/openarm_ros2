@@ -1,3 +1,30 @@
+
+"""
+Dora-to-ROS2 Bridge Node
+
+This node acts as a state holder and message translator between the Dora dataflow
+and ROS 2 control interfaces. It subscribes to joint position and camera inputs
+from the Dora graph and forwards them to the appropriate ROS 2 controllers.
+
+Current use cases:
+  - Teleoperation: relay joint commands from a leader to the robot controllers
+  - Data collection: forward states for rosbag recording
+
+This bridge will be updated as teleoperation and data collection requirements evolve.
+
+Inputs (Dora):
+  - left_position  : float64[8] - left arm joints (7) + gripper (1)
+  - right_position : float64[8] - right arm joints (7) + gripper (1)
+  - camera_image   : uint8[]    - JPEG-encoded image
+
+Outputs (ROS 2):
+  - /left_joint_trajectory_controller/joint_trajectory
+  - /right_joint_trajectory_controller/joint_trajectory
+  - /left_gripper_controller/joint_trajectory
+  - /right_gripper_controller/joint_trajectory
+  - /camera/image_raw/compressed
+"""
+
 #!/usr/bin/env python
 import dora
 import pyarrow as pa
