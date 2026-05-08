@@ -16,7 +16,7 @@ def main():
         if event["type"] == "INPUT" and event["id"] == "tick":
             t = time.time() - start_time
 
-            angle_rad = (math.pi / 4) + (math.pi / 4) * math.sin(t*2.0)
+            angle_rad = (math.pi / 4) + (math.pi / 4) * math.sin(t*0.5)
 
             positions = [0.0] * 8
 

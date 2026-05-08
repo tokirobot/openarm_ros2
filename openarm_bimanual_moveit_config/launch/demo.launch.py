@@ -23,7 +23,6 @@ def generate_robot_description(
     right_can_interface_str = context.perform_substitution(right_can_interface)
     left_can_interface_str = context.perform_substitution(left_can_interface)
 
-    # v10/v20 切り替えロジック
     if "10" in arm_type_str or "1.0" in arm_type_str:
         folder_name = "openarm_v1.0"
         file_name = "openarm_v10.urdf.xacro"
@@ -206,7 +205,7 @@ def generate_launch_description():
         DeclareLaunchArgument("right_can_interface", default_value="can0"),
         DeclareLaunchArgument("left_can_interface", default_value="can1"),
         DeclareLaunchArgument(
-            "controllers_file", default_value="openarm_bimanual_controllers.yaml"),
+            "controllers_file", default_value="openarm_bimanual_moveit_controllers.yaml"),
     ]
 
     description_package = LaunchConfiguration("description_package")

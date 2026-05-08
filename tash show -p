@@ -1,0 +1,207 @@
+*   [33m5a21235[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on v2.0: 2ad0c06 add moveit robot version config
+[31m|[m[32m\[m  
+[31m|[m * [33m2abdc4f[m index on v2.0: 2ad0c06 add moveit robot version config
+[31m|[m[31m/[m  
+* [33m2ad0c06[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/v2.0[m[33m, [m[1;31morigin/feature/v2.0[m[33m)[m add moveit robot version config
+* [33m2970090[m bring up per version
+* [33mea6ead5[m modify moveit config
+* [33mfc7ad23[m feat: add dora ros2 node and camera integration
+* [33me46249c[m modify moveit config
+* [33m439c3ab[m fix pilz file path
+* [33mde066f4[m add fake hardware in moveit
+* [33me57b42e[m add version arg
+* [33m770aa68[m run precommit
+* [33mf762e03[m add v20 support
+[32m|[m * [33m39271ef[m[33m ([m[1;31mupstream/main[m[33m, [m[1;31mupstream/HEAD[m[33m)[m enabled configuration of hand control gains (#88)
+[32m|[m[32m/[m  
+* [33m3dd5270[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m Rename `rightcan_interface` to `right_can_interface` (#86)
+* [33m73ef898[m[33m ([m[1;33mtag: 0.9.2[m[33m)[m Make gain configurable (#79)
+* [33meeca95e[m Decrease gain for safety (#78)
+* [33m940b109[m fix(openarm_hardware): modify pd-gains of controllers (#69)
+* [33ma0fa1fb[m release: Add a setting to exclude dependabot from generate-notes content (#76)
+* [33m09fc8a4[m feat: openarm_can as a ros package (#73)
+* [33m6770a06[m Bump actions/cache from 4 to 5 (#74)
+* [33m555657c[m Bump actions/checkout from 5 to 6 (#70)
+[33m|[m * [33m47ba32e[m[33m ([m[1;31mupstream/bloom_release_ros[m[33m)[m Experimental deb build on release
+[33m|[m[33m/[m  
+[33m|[m * [33m8087bbc[m[33m ([m[1;31mupstream/jazzy[m[33m)[m Update gripper_controller for new changes in ROS2 Jazzy (#61)
+[33m|[m[33m/[m  
+* [33m39dc03e[m Add package dependencies for running openarm ros2 controller demo (#60)
+* [33m5309b13[m Fix the RViz file name in the launch script (#58)
+* [33m5a2b913[m Bump actions/checkout from 4 to 5 (#54)
+* [33mf9982d6[m Revert hardware flag (#53)
+* [33m07bbb4b[m Moveit2 support for OpenArm v1 (#52)
+* [33me329470[m Update authors (#51)
+* [33m3e1f979[m[33m ([m[1;33mtag: 0.9.1[m[33m)[m Add approximate gripper position (#49)
+* [33m444a998[m Fix read() in hardware plugin (#47)
+* [33m26b7f51[m[33m ([m[1;33mtag: 0.9.0[m[33m)[m Update license headers (#45)
+* [33m1058044[m Remove moveit from main (#44)
+* [33m110fd27[m Update hardware interface (#43)
+* [33mc13caff[m Simplify README (#42)
+* [33m9c1deb3[m Add release CI jobs and scripts (#41)
+* [33m67a60a2[m Reconfigured controllers with new URDF for v1.0  (#34)
+* [33m0e136a2[m Add related links to README (#39)
+* [33m09254f0[m Add contributing guide line (#37)
+* [33m9295571[m Add issue templates (#35)
+[35m|[m * [33ma569781[m[33m ([m[1;31mupstream/moveit2_experiment[m[33m)[m Add use_sim_hardware flag
+[35m|[m * [33m980052d[m Add customization options to demo.launch (#38)
+[35m|[m * [33me47ac00[m Update README.md
+[35m|[m * [33me22712f[m Support v1 moveit2
+[35m|[m * [33m6b99e45[m Fix arm controllers, fixing gripper next
+[35m|[m * [33mfc90ec6[m Rework urdf v1
+[35m|[m * [33macbc73c[m Configure moveit2 with v1.0
+[35m|[m * [33m1bc791f[m Add namespace functionality with arm_prefix
+[35m|[m * [33m41d2e4a[m Bump versionn to v1.0
+[35m|[m * [33m66305b7[m Update default rviz config to load world frame and robotmodel, fix typo in yaml name
+[35m|[m * [33m0d72c0c[m Use {prefix_}can_interface in functions
+[35m|[m * [33m318068f[m Fix typo in config yaml param
+[35m|[m * [33mf62c03d[m Cleanup and update license header
+[35m|[m * [33me7ccf13[m Configure controllers
+[35m|[m[35m/[m  
+* [33m49579a9[m[33m ([m[1;33mtag: v0.3[m[33m)[m Cleanup the package structure (#30)
+* [33mab7fe4f[m Update org (#29)
+* [33m125fcad[m rosdep fix - add ros2_control dependencies (#27)
+[36m|[m * [33m7bb5a35[m[33m ([m[1;31morigin/feature/openarm_v1_test[m[33m)[m fix: hand inertia
+[36m|[m * [33mc0788a9[m delete: gazebo setting
+[36m|[m * [33m346dbcc[m fix: finger force limit
+[36m|[m * [33m3a958c3[m fix: openarm_hand.xacro left_finger -> right_finger
+[36m|[m * [33m2aba3fb[m fix: joint limits
+[36m|[m * [33mc14b52f[m delete: gazebo setting
+[36m|[m * [33m46b711e[m fix: ee_type none error
+[36m|[m * [33m5512643[m add: body stl
+[36m|[m * [33maa9f9a7[m fix: left right prefix position
+[36m|[m * [33m1cab853[m fix: bimanual joint name
+[36m|[m * [33m98f0f03[m fix: joint link name and gripper origiin
+[36m|[m * [33m383df8a[m fix: undefined property
+[36m|[m * [33m1d2e19a[m fix: joint2 angle limit
+[36m|[m * [33m043e625[m fix: right left inversion of order
+[36m|[m * [33m0b9ab3a[m add: ros2_control
+[36m|[m * [33m27ee61c[m Apply autopep8 formatting via pre-commit
+[36m|[m * [33m8e88a8d[m delete: gomi file
+[36m|[m * [33m9109d1f[m fix: hand position
+[36m|[m * [33md8ebada[m fix: hand dae
+[36m|[m * [33md283d8f[m add: bimanual
+[36m|[m * [33m4e05953[m add: body
+[36m|[m * [33ma34fde3[m add: dae stl
+[36m|[m * [33m425b7a4[m fix : urdf fix
+[36m|[m * [33m602adff[m add: openarm v1.0 bimanual urdf
+[36m|[m [1;31m|[m * [33mbb2ee41[m[33m ([m[1;31mupstream/novnc_docker[m[33m)[m Remove unused header
+[36m|[m [1;31m|[m * [33ma3645fb[m Update image to docker hub
+[36m|[m [1;31m|[m * [33m4496a8e[m Add realsense packages to package.xml for bringup to be installed via rosdep
+[36m|[m [1;31m|[m * [33ma16e3f5[m Use public image under thomasonzhou, waiting for org approval for enabling public ghcr.io packages
+[36m|[m [1;31m|[m * [33mbc18d3d[m Clang format
+[36m|[m [1;31m|[m * [33ma257d55[m Add to readme
+[36m|[m [1;31m|[m * [33mc29a08b[m Remove stray line
+[36m|[m [1;31m|[m * [33m5e9d60e[m Add correct header
+[36m|[m [1;31m|[m * [33ma70bbc9[m Add header
+[36m|[m [1;31m|[m * [33m9ea5c23[m Add comma
+[36m|[m [1;31m|[m * [33ma651589[m Fix constructor order
+[36m|[m [1;31m|[m * [33m0a1c53b[m Improve ws server logic
+[36m|[m [1;31m|[m * [33m6e25a4d[m Adjust reconnect timer
+[36m|[m [1;31m|[m * [33m8796682[m Add support for novnc containers: to be tested on MacOS, Windows
+[36m|[m [1;31m|[m * [33m47c8d75[m Add ros2_control in package.xml files
+[36m|[m [1;31m|[m[36m/[m  
+[36m|[m[36m/[m[1;31m|[m   
+* [1;31m|[m [33m158d15d[m Add mujoco ros2 control (#26)
+* [1;31m|[m [33md151836[m Remove openarm_moveit_config from metapackage (#25)
+* [1;31m|[m [33m40a1a5c[m Revert "Kirigirisu merge feature added" (#24)
+[1;32m|[m [1;31m|[m * [33m7fc5126[m[33m ([m[1;31mupstream/kirigirisu[m[33m)[m Revert "Kirigirisu merge feature added (#23)"
+[1;32m|[m [1;31m|[m[1;32m/[m  
+[1;32m|[m[1;32m/[m[1;31m|[m   
+* [1;31m|[m [33mf1420f1[m Kirigirisu merge feature added (#23)
+* [1;31m|[m [33m09d3364[m Updated README.md for jazzy patch part
+* [1;31m|[m [33m5f79dd9[m Update README.md with Jazzy patch
+[1;31m|[m[1;31m/[m  
+* [33m5bbe23c[m refactor: separate robot and control xacros (#22)
+* [33m2206a7b[m lint: add autopep8 to pre-commit hook for Python formatting (#21)
+* [33m00ef972[m Delete unplanned single arm moveit (#20)
+* [33m14f160b[m fix: malfunctioning launch script (#19)
+* [33mdd0be4a[m Add Contributor Covenant Code of Conduct (#18)
+* [33m7f5dcae[m openarm_hardware: add ros2_control_test_assets as a test dependency (#15)
+* [33m44bca7b[m fix: move xml-model declaration above license header (#14)
+* [33m56f98bd[m Relicense to Apache License 2.0 from BSD 3-Clause License (#13)
+* [33m421e70a[m remove Vim's swap files (#12)
+* [33md109f32[m clang-format: apply clang-format suggestions (#10)
+* [33m30d11b4[m ci: Enable Dependabot for GitHub Actions (#11)
+* [33mc9fbd8a[m ci: add pre-commit and CI lint workflow (#9)
+* [33md6cc80c[m fix: compatible with canfd (#7)
+* [33mde9eb17[m Add '*.swp' to .gitignore (#8)
+[1;33m|[m * [33m039497a[m[33m ([m[1;31morigin/yt/socket_canfd[m[33m)[m fix: address review comments
+[1;33m|[m * [33m3eac26b[m fix : compatible with canfd
+[1;33m|[m[1;33m/[m  
+* [33ma877809[m Update package.xml with description and maintainer info
+* [33mea2e25e[m Update README.md with build status badge
+* [33me9365f0[m Update openarm_hardware package.xml to include hardware_interface and pluginlib
+* [33me4afcbf[m Remove unused dep 'warehouse_ros_mongo' from package.xml
+* [33m7d4eaf9[m Remove openarm_bimanual_teleop from openarm metapackage
+* [33m1d881bb[m Update package.xml with BSD-3-Clause License
+* [33md9a2a6d[m Add openarm metapackage
+* [33me24c9e3[m Update generated urdfs
+* [33mfcd1a10[m Correct URDF to true joint limits + Add and update documentation (#6)
+* [33mf7ca1fe[m Add updated urdfs
+* [33m1a1084c[m Add moveit2 package with dual arm/gripper (#5)
+[1;34m|[m * [33m51ee08a[m[33m ([m[1;31mupstream/gravcomp[m[33m)[m Compute gravity torque
+[1;34m|[m * [33mc6d02da[m Initialize openarm_gravcomp_controller (at least buildable)
+[1;34m|[m[1;34m/[m  
+* [33mce06ea1[m Add URDFs
+* [33m65baa02[m Resolve merge conflict
+* [33m9618e10[m Remove default disable_torque_ in openarm
+* [33m596c498[m Add openarm_bimanual_moveit_config and deploy to physical openarm (#3)
+* [33m42935bb[m Clean up openarm_bimanual_description
+* [33mb50556c[m Refactor openarm urdf
+* [33m8168442[m Add library install for openarm_hardware
+* [33md743016[m Update README.md with installation instructions
+* [33m0246fc6[m Reorder packages in alphabetical order in README.md
+* [33m595fbe7[m Implement openarm ros2_control support with openarm_hardware and openarm_bringup (#2)
+* [33m52f3901[m Update package.xml description for openarm_bimanual_description
+* [33m8cfbde6[m Update README.md with pictures of completed openarm_bimanual_description urdf
+* [33md5a9322[m Add openarm_bimanual_description to the readme
+* [33m5839d05[m Update default zero to be up, with option for arm zero position (bend shoulder)
+* [33m73eea36[m Update urdf
+* [33mbb8bff1[m Refactor openarm_description into separate package
+* [33m17b99f5[m Cleanup bimanual_description
+* [33m3b8f12d[m Use stl over dae
+* [33mdb10d87[m Remove redundant dae files
+* [33m4dddd2b[m Rename dae to more readable names
+* [33mc5f8cfb[m Update rom of gripper to 4.51cm
+* [33m289ed48[m Generate updated urdf
+* [33m62b6e3a[m Align left gripper visual mesh
+* [33mf88e62e[m Align left arm mesh
+* [33m4466756[m Complete mesh alignment for left arm
+* [33m2a0ef59[m Close
+* [33me00fa98[m Add rotate mesh for actuator motor
+* [33m90f859b[m Add left wrist
+* [33mfdf02a7[m Add arm mirrors
+* [33md630ecb[m Checkpoint: left arm up to link4
+* [33m749a893[m Revert side
+* [33m184959e[m Revert mirrors
+* [33m45f5e21[m Link 5 checkpoint
+* [33m213a35f[m Checkpoint to add up to rev 6, link 4
+* [33mfc2477b[m Correct first joint of left arm
+* [33mb81fc57[m Checkpoint: up to link3
+* [33m97564b9[m Switch default to right
+* [33ma2e5683[m Define one side with xacro
+* [33m8fad065[m Format left urdf
+* [33m9f85006[m Add left and right arms
+* [33m3776596[m Define xacro shortcuts to start and decouple left and right arms from torso
+* [33mf881d5c[m Move openarm_two_arms out of workfolder
+* [33m1cdb995[m Add two arm urdf
+* [33m102f1ed[m Add todo note about inertial tests for URDF
+* [33m7022969[m Update joint names to be more readable
+* [33m65d94e4[m Add new urdf
+* [33mc1016d6[m Update rev7 joint type for urdf (continuous -> revolute)
+* [33m49483aa[m Remove all permissions from meshes
+* [33mfe0f507[m Add file descriptor
+* [33m004d083[m Restore find command
+* [33m1e24df2[m Update urdf for better gazebo compatibility
+* [33m702c92a[m Remove query start state for safe trajectory plans
+* [33ma811f30[m Verified working with humble/rolling
+* [33m08a299c[m Add mimic tag to control left and right gripper equally
+* [33mc9c249c[m Update package descriptions
+*   [33m7502b7b[m Merge pull request #1 from reazon-research/sf/left-slider
+[1;36m|[m[31m\[m  
+[1;36m|[m * [33m5809be6[m Fix the slider name from 'slider_left' to 'slider_right'
+[1;36m|[m[1;36m/[m  
+* [33mc8793e0[m Update description to ROS2
+* [33mfdeb07c[m Add moveit video to README.md
+* [33m1418c85[m Add openarm_grip_description and openarm_moveit_config

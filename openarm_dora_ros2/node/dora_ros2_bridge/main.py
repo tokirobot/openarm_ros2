@@ -33,7 +33,7 @@ def main():
     EMPTY_F64 = np.array([], dtype=np.float64)
     SEC_0 = np.int32(0)
     NSEC_0 = np.uint32(0)
-    NSEC_WAIT = np.uint32(20000000)  # 20ms
+    NSEC_WAIT = np.uint32(0)
 
     NAMES_L_ARM = [f"openarm_left_joint{i+1}" for i in range(7)]
     NAMES_R_ARM = [f"openarm_right_joint{i+1}" for i in range(7)]
