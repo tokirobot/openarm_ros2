@@ -332,7 +332,8 @@ void OpenArmHW::return_to_zero() {
 }
 
 // void OpenArmHW::return_to_zero() {
-//   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Returning to zero position...");
+//   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Returning to zero
+//   position...");
 
 //   // Return arm to zero with MIT control
 //   std::vector<openarm::damiao_motor::MITParam> arm_params;
