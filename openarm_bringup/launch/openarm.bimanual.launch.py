@@ -41,22 +41,23 @@ def generate_robot_description(context: LaunchContext, description_package, desc
     """Generate robot description using xacro processing."""
 
     description_package_str = context.perform_substitution(description_package)
-    description_file_str = context.perform_substitution(description_file)
     arm_type_str = context.perform_substitution(arm_type)
     use_fake_hardware_str = context.perform_substitution(use_fake_hardware)
     right_can_interface_str = context.perform_substitution(right_can_interface)
     left_can_interface_str = context.perform_substitution(left_can_interface)
 
+    if "10" in arm_type_str or "1.0" in arm_type_str:
+        folder_name = "openarm_v1.0"
+        file_name = "openarm_v10.urdf.xacro"
+    else:
+        folder_name = "openarm_v2.0"
+        file_name = "openarm_v20.urdf.xacro"
+
     xacro_path = os.path.join(
         get_package_share_directory(description_package_str),
-        "assets", "robot", "openarm_v2.0", "urdf", "openarm_v20.urdf.xacro"
+        "assets", "robot", folder_name, "urdf", file_name
     )
 
-    if arm_type_str in ["v10", "v1.0"]:
-        xacro_path = os.path.join(
-            get_package_share_directory(description_package_str),
-            "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
-        )
     # Process xacro with required arguments
     robot_description = xacro.process_file(
         xacro_path,

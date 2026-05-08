@@ -20,7 +20,7 @@ def main():
 
             positions = [0.0] * 8
 
-            positions[7] = angle_rad
+            positions[3] = angle_rad
 
             node.send_output("left_position", pa.array(positions))
             node.send_output("right_position", pa.array(positions))
