@@ -8,6 +8,24 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from moveit_configs_utils import MoveItConfigsBuilder
 
+# Valid arm types
+VALID_ARM_TYPES = ("openarm_v1.0", "openarm_v2.0")
+
+
+def resolve_arm_config(arm_type_str: str) -> tuple[str, str]:
+    """
+    Resolve folder name and xacro file name from arm_type.
+    arm_type must be one of: openarm_v1.0, openarm_v2.0
+    """
+    if arm_type_str not in VALID_ARM_TYPES:
+        raise ValueError(
+            f"Invalid arm_type: '{arm_type_str}'. "
+            f"Please specify one of: {', '.join(VALID_ARM_TYPES)}"
+        )
+    if arm_type_str == "openarm_v1.0":
+        return "openarm_v1.0", "openarm_v10.urdf.xacro"
+    return "openarm_v2.0", "openarm_v20.urdf.xacro"
+
 
 def generate_robot_description(
     context: LaunchContext,
@@ -23,12 +41,7 @@ def generate_robot_description(
     right_can_interface_str = context.perform_substitution(right_can_interface)
     left_can_interface_str = context.perform_substitution(left_can_interface)
 
-    if "10" in arm_type_str or "1.0" in arm_type_str:
-        folder_name = "openarm_v1.0"
-        file_name = "openarm_v10.urdf.xacro"
-    else:
-        folder_name = "openarm_v2.0"
-        file_name = "openarm_v20.urdf.xacro"
+    folder_name, file_name = resolve_arm_config(arm_type_str)
 
     xacro_path = os.path.join(
         get_package_share_directory(description_package_str),
@@ -117,12 +130,7 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
     moveit_pkg_path = get_package_share_directory(
         "openarm_bimanual_moveit_config")
 
-    if "10" in arm_type_str or "1.0" in arm_type_str:
-        folder_name = "openarm_v1.0"
-        file_name = "openarm_v10.urdf.xacro"
-    else:
-        folder_name = "openarm_v2.0"
-        file_name = "openarm_v20.urdf.xacro"
+    folder_name, file_name = resolve_arm_config(arm_type_str)
 
     xacro_path = os.path.join(
         description_pkg_path, "assets", "robot", folder_name, "urdf", file_name
@@ -191,7 +199,12 @@ def generate_launch_description():
     declared_arguments = [
         DeclareLaunchArgument("description_package",
                               default_value="openarm_description"),
-        DeclareLaunchArgument("arm_type", default_value="v20"),
+        DeclareLaunchArgument(
+            "arm_type",
+            default_value="openarm_v2.0",
+            choices=list(VALID_ARM_TYPES),
+            description="Arm type. Choose from: openarm_v1.0, openarm_v2.0"
+        ),
         DeclareLaunchArgument("use_fake_hardware", default_value="true"),
         DeclareLaunchArgument(
             "robot_controller",
@@ -205,7 +218,8 @@ def generate_launch_description():
         DeclareLaunchArgument("right_can_interface", default_value="can0"),
         DeclareLaunchArgument("left_can_interface", default_value="can1"),
         DeclareLaunchArgument(
-            "controllers_file", default_value="openarm_bimanual_moveit_controllers.yaml"),
+            "controllers_file",
+            default_value="openarm_bimanual_moveit_controllers.yaml"),
     ]
 
     description_package = LaunchConfiguration("description_package")
