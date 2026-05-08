@@ -295,21 +295,60 @@ hardware_interface::return_type OpenArmHW::write(
 void OpenArmHW::return_to_zero() {
   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Returning to zero position...");
 
-  // Return arm to zero with MIT control
-  std::vector<openarm::damiao_motor::MITParam> arm_params;
-  for (size_t i = 0; i < ARM_DOF; ++i) {
-    arm_params.push_back({kp_[i], kd_[i], 0.0, 0.0, 0.0});
-  }
-  openarm_->get_arm().mit_control_all(arm_params);
-
-  // Return gripper to zero if enabled
-  if (hand_) {
-    openarm_->get_gripper().mit_control_all(
-        {{GRIPPER_KP, GRIPPER_KD, GRIPPER_JOINT_0_POSITION, 0.0, 0.0}});
-  }
-  std::this_thread::sleep_for(std::chrono::microseconds(1000));
+  // 現在位置を取得
+  openarm_->refresh_all();
   openarm_->recv_all();
+  const auto& arm_motors = openarm_->get_arm().get_motors();
+
+  std::vector<double> start_pos(ARM_DOF, 0.0);
+  for (size_t i = 0; i < ARM_DOF && i < arm_motors.size(); ++i) {
+    start_pos[i] = arm_motors[i].get_position();
+  }
+
+  // 2秒かけてZERO_POSITIONへ補間
+  const int steps = 200;
+  const int step_ms = 10;
+
+  for (int step = 0; step <= steps; ++step) {
+    double t = static_cast<double>(step) / steps;  // 0.0 → 1.0
+
+    std::vector<openarm::damiao_motor::MITParam> arm_params;
+    for (size_t i = 0; i < ARM_DOF; ++i) {
+      double target = start_pos[i] + t * (ZERO_POSITION[i] - start_pos[i]);
+      arm_params.push_back({kp_[i], kd_[i], target, 0.0, 0.0});
+    }
+    openarm_->get_arm().mit_control_all(arm_params);
+
+    if (hand_) {
+      openarm_->get_gripper().mit_control_all(
+          {{GRIPPER_KP, GRIPPER_KD, GRIPPER_JOINT_0_POSITION, 0.0, 0.0}});
+    }
+
+    openarm_->recv_all();
+    std::this_thread::sleep_for(std::chrono::milliseconds(step_ms));
+  }
+
+  RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Reached zero position");
 }
+
+// void OpenArmHW::return_to_zero() {
+//   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Returning to zero position...");
+
+//   // Return arm to zero with MIT control
+//   std::vector<openarm::damiao_motor::MITParam> arm_params;
+//   for (size_t i = 0; i < ARM_DOF; ++i) {
+//     arm_params.push_back({kp_[i], kd_[i], 0.0, 0.0, 0.0});
+//   }
+//   openarm_->get_arm().mit_control_all(arm_params);
+
+//   // Return gripper to zero if enabled
+//   if (hand_) {
+//     openarm_->get_gripper().mit_control_all(
+//         {{GRIPPER_KP, GRIPPER_KD, GRIPPER_JOINT_0_POSITION, 0.0, 0.0}});
+//   }
+//   std::this_thread::sleep_for(std::chrono::microseconds(1000));
+//   openarm_->recv_all();
+// }
 
 double OpenArmHW::joint_to_motor_radians(double joint_value) {
   if (ee_type_ == "pinch_gripper") {
