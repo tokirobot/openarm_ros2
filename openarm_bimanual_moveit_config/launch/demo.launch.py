@@ -23,14 +23,19 @@ def generate_robot_description(
     right_can_interface_str = context.perform_substitution(right_can_interface)
     left_can_interface_str = context.perform_substitution(left_can_interface)
 
-    # xacro_path = os.path.join(
-    #     get_package_share_directory(description_package_str),
-    #     "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro",
-    # )
+    # v10/v20 切り替えロジック
+    if "10" in arm_type_str or "1.0" in arm_type_str:
+        folder_name = "openarm_v1.0"
+        file_name = "openarm_v10.urdf.xacro"
+    else:
+        folder_name = "openarm_v2.0"
+        file_name = "openarm_v20.urdf.xacro"
+
     xacro_path = os.path.join(
         get_package_share_directory(description_package_str),
-        "assets", "robot", "openarm_v2.0", "urdf", "openarm_v20.urdf.xacro"
+        "assets", "robot", folder_name, "urdf", file_name
     )
+
     return xacro.process_file(
         xacro_path,
         mappings={
@@ -113,12 +118,15 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
     moveit_pkg_path = get_package_share_directory(
         "openarm_bimanual_moveit_config")
 
-    # xacro_path = os.path.join(
-    #     description_pkg_path, "urdf", "robot", arm_type_str, f"{arm_type_str}.urdf.xacro"
-    # )
+    if "10" in arm_type_str or "1.0" in arm_type_str:
+        folder_name = "openarm_v1.0"
+        file_name = "openarm_v10.urdf.xacro"
+    else:
+        folder_name = "openarm_v2.0"
+        file_name = "openarm_v20.urdf.xacro"
 
     xacro_path = os.path.join(
-        description_pkg_path, "assets", "robot", "openarm_v2.0", "urdf", "openarm_v20.urdf.xacro"
+        description_pkg_path, "assets", "robot", folder_name, "urdf", file_name
     )
 
     moveit_config = (
@@ -138,7 +146,6 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
         .joint_limits(file_path=f"config/{arm_type_str}/joint_limits.yaml")
         .trajectory_execution(file_path=f"config/{arm_type_str}/moveit_controllers.yaml")
         .planning_pipelines(
-            # pipelines=["ompl", "pilz_industrial_motion_planner"],
             pipelines=["ompl"],
             default_planning_pipeline="ompl"
         )
