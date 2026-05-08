@@ -1,10 +1,3 @@
-## VR teleop pipeline
-##
-## udp-receiver → ik → viewer
-##
-## udp-receiver receives SE(3) controller poses from the VR headset over UDP.
-## IK solves bimanual joint angles from those poses.
-## viewer visualises the IK solution in MuJoCo.
 nodes:
   - id: tick   # ── 250 Hz tick ───────────────────────────────────────────────
     build: pip install git+https://github.com/enactic/dora-openarm-quitter
@@ -35,20 +28,6 @@ nodes:
     path: ../node/dummy-camera.py
     outputs:
       - image
-
-  # - id: camera-test
-  #   build: pip install opencv-video-capture
-  #   path: opencv-video-capture
-  #   env:
-  #     CAPTURE_PATH: "/dev/video6"
-  #     ENCODING: "jpeg"
-  #     IMAGE_HEIGHT: 720
-  #     IMAGE_WIDTH: 1280
-  #     JPEG_QUALITY: 90
-  #   inputs:
-  #     tick: tick-camera/tick
-  #   outputs:
-  #     - image
 
   - id: dora-to-ros2
     build: pip install -e ..
