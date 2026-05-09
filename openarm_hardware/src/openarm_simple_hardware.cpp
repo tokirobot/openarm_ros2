@@ -75,6 +75,16 @@ bool OpenArmHW::parse_config(const hardware_interface::HardwareInfo& info) {
   it = info.hardware_parameters.find("ee_type");
   ee_type_ =
       (it != info.hardware_parameters.end()) ? it->second : "parallel_link";
+  if (hand_) {
+    it = info.hardware_parameters.find("kp_hand");
+    if (it != info.hardware_parameters.end()) {
+      gripper_kp_ = std::stod(it->second);
+    }
+    it = info.hardware_parameters.find("kd_hand");
+    if (it != info.hardware_parameters.end()) {
+      gripper_kd_ = std::stod(it->second);
+    }
+  }
 
   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"),
               "Configuration: CAN=%s, arm_prefix=%s, hand=%s, can_fd=%s",
@@ -286,7 +296,7 @@ hardware_interface::return_type OpenArmHW::write(
     // TODO the true mappings are unimplemented.
     double motor_command = joint_to_motor_radians(pos_commands_[ARM_DOF]);
     openarm_->get_gripper().mit_control_all(
-        {{GRIPPER_KP, GRIPPER_KD, motor_command, 0, 0}});
+        {{gripper_kp_, gripper_kd_, motor_command, 0.0, 0.0}});
   }
   openarm_->recv_all(100);
   return hardware_interface::return_type::OK;
@@ -295,8 +305,20 @@ hardware_interface::return_type OpenArmHW::write(
 void OpenArmHW::return_to_zero() {
   RCLCPP_INFO(rclcpp::get_logger("OpenArmHW"), "Returning to zero position...");
 
-  // 現在位置を取得
   openarm_->refresh_all();
+  // Return arm to zero with MIT control
+  std::vector<openarm::damiao_motor::MITParam> arm_params;
+  for (size_t i = 0; i < ARM_DOF; ++i) {
+    arm_params.push_back({kp_[i], kd_[i], 0.0, 0.0, 0.0});
+  }
+  openarm_->get_arm().mit_control_all(arm_params);
+
+  // Return gripper to zero if enabled
+  if (hand_) {
+    openarm_->get_gripper().mit_control_all(
+        {{gripper_kp_, gripper_kd_, GRIPPER_JOINT_0_POSITION, 0.0, 0.0}});
+  }
+  std::this_thread::sleep_for(std::chrono::microseconds(1000));
   openarm_->recv_all();
   const auto& arm_motors = openarm_->get_arm().get_motors();
 
@@ -305,7 +327,6 @@ void OpenArmHW::return_to_zero() {
     start_pos[i] = arm_motors[i].get_position();
   }
 
-  // 2秒かけてZERO_POSITIONへ補間
   const int steps = 200;
   const int step_ms = 10;
 

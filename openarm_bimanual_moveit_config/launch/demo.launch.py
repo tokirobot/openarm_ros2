@@ -8,21 +8,25 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from moveit_configs_utils import MoveItConfigsBuilder
 
-# Valid arm types
-VALID_ARM_TYPES = ("openarm_v1.0", "openarm_v2.0")
+# All accepted arm_type values
+VALID_ARM_TYPES = {
+    "v1.0", "v10", "v1_0", "openarm_v1.0", "openarm_v10", "openarm_v1_0",
+    "v2.0", "v20", "v2_0", "openarm_v2.0", "openarm_v20", "openarm_v2_0",
+}
 
 
 def resolve_arm_config(arm_type_str: str) -> tuple[str, str]:
     """
     Resolve folder name and xacro file name from arm_type.
-    arm_type must be one of: openarm_v1.0, openarm_v2.0
+    Accepts: v1.0, v10, v1_0, openarm_v1.0, openarm_v10, openarm_v1_0 (and v2.0 variants)
+    Raises ValueError if arm_type is not recognized.
     """
     if arm_type_str not in VALID_ARM_TYPES:
         raise ValueError(
             f"Invalid arm_type: '{arm_type_str}'. "
-            f"Please specify one of: {', '.join(VALID_ARM_TYPES)}"
+            f"Please specify openarm_v1.0 or openarm_v2.0."
         )
-    if arm_type_str == "openarm_v1.0":
+    if any(x in arm_type_str for x in ("1.0", "10", "1_0")):
         return "openarm_v1.0", "openarm_v10.urdf.xacro"
     return "openarm_v2.0", "openarm_v20.urdf.xacro"
 
@@ -136,6 +140,11 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
         description_pkg_path, "assets", "robot", folder_name, "urdf", file_name
     )
 
+    if any(x in arm_type_str for x in ("1.0", "10", "1_0")):
+        config_dir = "openarm_v1.0"
+    else:
+        config_dir = "openarm_v2.0"
+
     moveit_config = (
         MoveItConfigsBuilder(
             "openarm", package_name="openarm_bimanual_moveit_config")
@@ -148,10 +157,10 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
                 "ros2_control": "true",
             }
         )
-        .robot_description_semantic(file_path=f"config/{arm_type_str}/openarm_bimanual.srdf")
-        .robot_description_kinematics(file_path=f"config/{arm_type_str}/kinematics.yaml")
-        .joint_limits(file_path=f"config/{arm_type_str}/joint_limits.yaml")
-        .trajectory_execution(file_path=f"config/{arm_type_str}/moveit_controllers.yaml")
+        .robot_description_semantic(file_path=f"config/{config_dir}/openarm_bimanual.srdf")
+        .robot_description_kinematics(file_path=f"config/{config_dir}/kinematics.yaml")
+        .joint_limits(file_path=f"config/{config_dir}/joint_limits.yaml")
+        .trajectory_execution(file_path=f"config/{config_dir}/moveit_controllers.yaml")
         .planning_pipelines(
             pipelines=["ompl"],
             default_planning_pipeline="ompl"
@@ -162,7 +171,7 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
     moveit_params = moveit_config.to_dict()
 
     pilz_cartesian_limits_path = os.path.join(
-        moveit_pkg_path, "config", arm_type_str, "pilz_cartesian_limits.yaml"
+        moveit_pkg_path, "config", config_dir, "pilz_cartesian_limits.yaml"
     )
 
     if os.path.exists(pilz_cartesian_limits_path):
@@ -175,7 +184,7 @@ def moveit_nodes_spawner(context: LaunchContext, arm_type, use_fake_hardware):
                 moveit_params["robot_description_planning"].update(config_data)
 
     rviz_cfg = os.path.join(moveit_pkg_path, "config",
-                            arm_type_str, "moveit.rviz")
+                            config_dir, "moveit.rviz")
 
     return [
         Node(
@@ -202,8 +211,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "arm_type",
             default_value="openarm_v2.0",
-            choices=list(VALID_ARM_TYPES),
-            description="Arm type. Choose from: openarm_v1.0, openarm_v2.0"
+            description="Arm type. Accepts: v1.0, v10, openarm_v1.0, v2.0, v20, openarm_v2.0, etc."
         ),
         DeclareLaunchArgument("use_fake_hardware", default_value="true"),
         DeclareLaunchArgument(
