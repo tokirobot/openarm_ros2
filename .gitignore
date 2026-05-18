@@ -4,4 +4,4 @@
 __pycache__/
 **/out/
 .venv/
-venv/
+venv/openarm_dora_ros2/
