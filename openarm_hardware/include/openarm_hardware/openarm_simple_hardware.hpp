@@ -101,15 +101,15 @@ class OpenArmHW : public hardware_interface::SystemInterface {
   const uint32_t DEFAULT_GRIPPER_RECV_CAN_ID = 0x18;
 
   // Gains
-  std::vector<double> kp_ = {70.0, 70.0, 70.0, 60.0, 10.0, 10.0, 10.0};
-  std::vector<double> kd_ = {2.75, 2.5, 2.0, 2.0, 0.7, 0.6, 0.5};
+  std::vector<double> kp_ = {70.0, 70.0, 70.0, 60.0, 10.0, 10.0, 3.0};
+  std::vector<double> kd_ = {2.75, 2.5, 2.0, 2.0, 0.7, 0.6, 0.3};
 
   const double GRIPPER_JOINT_0_POSITION = 0.044;
   const double GRIPPER_JOINT_1_POSITION = 0.0;
   const double GRIPPER_MOTOR_0_RADIANS = 0.0;
   const double GRIPPER_MOTOR_1_RADIANS = -1.0472;
-  const double GRIPPER_KP = 5.0;
-  const double GRIPPER_KD = 0.1;
+  const double GRIPPER_KP = 3.0;
+  const double GRIPPER_KD = 0.3;
 
   double gripper_kp_ = GRIPPER_KP;
   double gripper_kd_ = GRIPPER_KD;

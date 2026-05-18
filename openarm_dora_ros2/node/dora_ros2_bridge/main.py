@@ -87,7 +87,6 @@ def main():
 
     # --- 4. Dora Loop ---
     dora_node = dora.Node()
-    print("🚀 ROS 2 Bridge: All systems go (Joints + Compressed Image)", flush=True)
 
     for event in dora_node:
         if event["type"] != "INPUT":
