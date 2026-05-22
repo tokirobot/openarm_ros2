@@ -74,7 +74,7 @@ bool OpenArmHW::parse_config(const hardware_interface::HardwareInfo& info) {
   // Parse ee_type (default: parallel_link for v10)
   it = info.hardware_parameters.find("ee_type");
   ee_type_ =
-      (it != info.hardware_parameters.end()) ? it->second : "parallel_link";
+      (it != info.hardware_parameters.end()) ? it->second : "pinch_gripper";
   if (hand_) {
     it = info.hardware_parameters.find("kp_hand");
     if (it != info.hardware_parameters.end()) {
